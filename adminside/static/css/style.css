@@ -89,7 +89,7 @@ body {
 }
 
 .sidebar ul li a.active {
-    background-color: #FFA16C;
+    background-color: orangered;
     color: white !important;
     font-weight: 600;
 }
