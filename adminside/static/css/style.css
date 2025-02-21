@@ -89,9 +89,11 @@ body {
 }
 
 .sidebar ul li a.active {
+
   background-color: orangered;
   color: white !important;
   font-weight: 600;
+
 }
 
 .content {
