@@ -107,6 +107,7 @@ body {
 
 @media (max-width: 768px) {
 <<<<<<< HEAD
+<<<<<<< HEAD
     .sidebar {
         width: 70px;
     }
@@ -149,6 +150,8 @@ body {
         width: calc(100% - 70px);
     }
 =======
+=======
+>>>>>>> branchH
   .sidebar {
     width: 70px;
   }
@@ -190,6 +193,8 @@ body {
     padding: calc(80px + 20px) 20px 20px;
     width: calc(100% - 70px);
   }
+<<<<<<< HEAD
 >>>>>>> f1ff567a11372bc1985ed86d0ac17de18f21387c
+=======
+>>>>>>> branchH
 }
-
