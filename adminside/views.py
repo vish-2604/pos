@@ -33,6 +33,9 @@ def customer(request):
 def staff(request):
     return render_page(request, 'adminside/staff.html')
 
+def reports(request):
+    return render_page(request, 'adminside/reports.html')
+
 def settings(request):
     return render_page(request, 'adminside/settings.html')
 
