@@ -4,6 +4,8 @@ body {
     margin: 0;
 }
 
+
+/* base.html CSS */
 .top-navbar {
     display: flex;
     justify-content: flex-end;
@@ -89,7 +91,7 @@ body {
 }
 
 .sidebar ul li a.active {
-    background-color: orangered;
+    background-color: #4E598C;
     color: white !important;
     font-weight: 600;
 }
