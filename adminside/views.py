@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect
+from .forms import CustomPasswordChangeForm
 
 def home(request):
     return redirect('dashboard')
 
 def render_page(request, template):
-    """Helper function to handle AJAX and full page requests"""
     if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
         return render(request, template)
     return render(request, "adminside/base.html", {"template": template})
@@ -36,8 +36,26 @@ def staff(request):
 def reports(request):
     return render_page(request, 'adminside/reports.html')
 
-def settings(request):
-    return render_page(request, 'adminside/settings.html')
+def settings_view(request):
+    return redirect('profile')
+
+def render_settings_page(request, template, context=None):
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        return render(request, template, context or {})
+    context = context or {}
+    context["template"] = template  # Ensures `template` is still passed
+    return render(request, "adminside/settings.html", context)
+
+def change_password(request):
+    form = CustomPasswordChangeForm(request.user)
+    return render_settings_page(request, "adminside/settings/change_password.html", {'form': form})
+
+def edit_profile(request):
+    return render_settings_page(request,"adminside/settings/edit_profile.html")
+
+def profile(request):
+    return render_settings_page(request,"adminside/settings/profile.html")
 
 def logout_view(request):
     return render_page(request, 'adminside/logout.html')
+

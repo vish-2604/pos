@@ -66,6 +66,9 @@
             <li><a href="{% url 'staff' %}" class="nav-link {% if request.path == '/staff/' %}active{% endif %}">
                 <i class="fa fa-users"></i><span> Staff</span></a>
             </li>
+            <li><a href="{% url 'reports' %}" class="nav-link {% if request.path == '/reports/' %}active{% endif %}">
+                <i class="fa fa-file-alt"></i><span> Reports</span></a>
+            </li>
             <li><a href="{% url 'settings' %}" class="nav-link {% if request.path == '/settings/' %}active{% endif %}">
                 <i class="fa fa-cogs"></i><span> Settings</span></a>
             </li>

@@ -1,4 +1,124 @@
+{% load static %}
+{% block title %}
+<title>Food-Items</title>
+{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/inventory_style.css' %}">
+{% endblock %}
 
-    <h2>Inventory</h2>
-    <p>Manage all inventory.</p>
+<div class="food-items-page">
+  <div class="food-item-title mt-4">
+    <h3>INVENTORY</h3>
 
+    <div class="search-container">
+      <input type="text" id="searchInput" class="search-input" placeholder="Search by category or name">
+      <button class="search-btn" onclick="toggleSearch()">
+        <i class="fa fa-search"></i>
+      </button>
+    </div>
+
+    <button class="open-button add-fooditems-button rounded-3" onclick="openForm()">
+      <span class="btn-text">
+        <i class="fa-solid fa-plus plus-icon"></i> Add Food Item
+      </span>
+      <span class="btn-icon"><i class="fa-solid fa-plus plus-icon"></i></span>
+    </button>
+  </div>
+
+  <div class="overlay" id="overlay" onclick="closeForm()"></div>
+  <div class="form-popup" id="myForm">
+    <form id="foodItemForm" class="form-container">
+        <h1 class="mb-3">Add Food Item</h1>
+
+        <div class="form-group">
+            <div class="input-group">
+                <label for="itemImage"><b>Image</b></label>
+                <input type="file" id="itemImage" accept="image/*">
+            </div>
+            <div class="input-group">
+                <label for="itemName"><b>Name</b></label>
+                <select id="itemName">
+                    <option value="">Select Name</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="input-group">
+                <label for="itemCategory"><b>Category</b></label>
+                <select id="itemCategory">
+                    <option value="">Select Category</option>
+                </select>
+            </div>
+            <div class="input-group full-width">
+                <label for="itemDescription"><b>Description</b></label>
+                <textarea id="itemDescription" placeholder="Enter Description"x  required></textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="input-group">
+                <label for="itemQuantity"><b>Quantity</b></label>
+                <input type="number" id="itemQuantity" placeholder="Enter Quantity" required>
+            </div>
+            <div class="input-group">
+                <label for="itemStore"><b>Store</b></label>
+                <select id="itemStore">
+                    <option value="">Select Store</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="input-group">
+                <label for="itemCost"><b>Cost Price</b></label>
+                <input type="number" id="itemCost" placeholder="Enter Cost Price" required>
+            </div>
+            <div class="input-group">
+                <label for="itemSelling"><b>Selling Price</b></label>
+                <input type="number" id="itemSelling" placeholder="Enter Selling Price" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="input-group">
+                <label for="itemMFG"><b>MFG Date</b></label>
+                <input type="date" id="itemMFG" required>
+            </div>
+            <div class="input-group">
+                <label for="itemExpiry"><b>Expiry Date</b></label>
+                <input type="date" id="itemExpiry" required>
+            </div>
+        </div>
+
+        <div class="form-buttons">
+          <button type="submit" class="btn">Add</button>
+          <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+        </div>
+    </form>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table fooditem-detail-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Image</th>
+          <th>Name</th>
+          <th>Category</th>
+          <th>Description</th>
+          <th>Quantity</th>
+          <th>Store</th>
+          <th>Selling Price</th>
+          <th>Cost Price</th>
+          <th>MFG Date</th>
+          <th>Expiry Date</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="foodTableBody"></tbody>
+    </table>
+  </div>
+</div>
+
+<script src="{% static 'js/inventory_scripts.js' %}"></script>
