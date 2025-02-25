@@ -16,82 +16,19 @@
         <i class="fa fa-search"></i>
       </button>
     </div>
-
-    <button class="open-button add-fooditems-button rounded-3" onclick="openForm()">
-      <span class="btn-text">
-        <i class="fa-solid fa-plus plus-icon"></i> Add Food Item
-      </span>
-      <span class="btn-icon"><i class="fa-solid fa-plus plus-icon"></i></span>
-    </button>
   </div>
-
-  <div class="overlay" id="overlay"></div>
-  <div class="form-popup" id="myForm">
-    <form id="foodItemForm" class="form-container">
-        <h1 class="mb-3">Add Food Item</h1>
-
-        <div class="form-group">
-            <div class="input-group">
-                <label for="itemId"><b>Item ID</b></label>
-                <input type="text" id="itemId" placeholder="Enter Item ID" required>
-            </div>
-            <div class="input-group">
-                <label for="itemName"><b>Item Name</b></label>
-                <input type="text" id="itemName" placeholder="Enter Item Name" required>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="input-group">
-                <label for="itemCategory"><b>Item Category</b></label>
-                <input type="text" id="itemCategory" placeholder="Enter Item Category" required>
-            </div>
-            <div class="input-group">
-                <label for="itemPrice"><b>Item Price</b></label>
-                <input type="number" id="itemPrice" placeholder="Enter Price" required>
-            </div>
-        </div>
-
-        <div class="form-group full-width mb-4">
-            <label for="itemDescription"><b>Item Description</b></label>
-            <input type="text" id="itemDescription" placeholder="Enter Description" required>
-        </div>
-
-        <div class="form-group">
-            <div class="input-group">
-                <label for="itemSize"><b>Item Size/Weight</b></label>
-                <input type="text" id="itemSize" placeholder="Enter Size/Weight" required>
-            </div>
-            <div class="input-group">
-                <label for="itemStatus"><b>Status</b></label>
-                <select id="itemStatus">
-                    <option value="In Stock">In Stock</option>
-                    <option value="Out Stock">Out of Stock</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="form-buttons">
-          <button type="submit" class="btn">Add</button>
-          <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
-      </div>
-
-    </form>
-</div>
-
 
   <div class="table-responsive">
     <table class="table fooditem-detail-table">
       <thead>
         <tr>
-          <th>Food-Item ID</th>
-          <th>Item Name</th>
-          <th>Item Category</th>
-          <th>Item Description</th>
-          <th>Item Price</th>
-          <th>Item Size/Weight</th>
+          <th>ID</th>
+          <th>Image</th>
+          <th>Name</th>
+          <th>Category</th>
+          <th>Description</th>
+          <th>Price</th>
           <th>Status</th>
-          <th>Action</th>
         </tr>
       </thead>
       <tbody id="foodTableBody">
