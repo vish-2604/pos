@@ -45,6 +45,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Donut Chart
     let chart = bb.generate({
+        size: {
+            width: 250,  // Adjust width
+            height: 250  // Adjust height
+        },
         data: {
             columns: [
                 ["Food", 4],
