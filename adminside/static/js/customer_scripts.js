@@ -11,14 +11,15 @@ function toggleSearch() {
 
 // Search function
 document.getElementById("searchInput").addEventListener("keyup", function () {
-  let filter = this.value.toLowerCase();
+  let filter = this.value.trim().toLowerCase();
   let rows = document.querySelectorAll("#customerBody tr");
 
   rows.forEach(function (row) {
-    let FirstName = row.cells[1].textContent.toLowerCase();
-    let LastName = row.cells[2].textContent.toLowerCase();
+    let firstName = row.cells[1].textContent.trim().toLowerCase();
+    let lastName = row.cells[2].textContent.trim().toLowerCase();
+    let fullName = `${firstName} ${lastName}`;
 
-    if (FirstName.includes(filter) || LastName.includes(filter)) {
+    if (firstName.includes(filter) || lastName.includes(filter) || fullName.includes(filter)) {
       row.style.display = "";
     } else {
       row.style.display = "none";
