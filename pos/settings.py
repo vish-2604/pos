@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
      "adminside",
+     "staffside",
 ]
 
 MIDDLEWARE = [
@@ -56,7 +57,7 @@ ROOT_URLCONF = 'pos.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,"adminside/templates")],
+        'DIRS': [os.path.join(BASE_DIR,"adminside/templates"),os.path.join(BASE_DIR,"staffside/templates")],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -118,7 +119,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'adminside/static/')]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'adminside/static/'),os.path.join(BASE_DIR, 'staffside/static/')]
 STATIC_ROOT = BASE_DIR / "staticfiles" 
 
 # Default primary key field type

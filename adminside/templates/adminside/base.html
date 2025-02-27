@@ -54,6 +54,9 @@
             <li><a href="{% url 'purchase' %}" class="nav-link {% if request.path == '/purchase/' %}active{% endif %}">
                 <i class="fa fa-credit-card"></i><span> Purchase</span></a>
             </li>
+            <li><a href="{% url 'categories' %}" class="nav-link {% if request.path == '/categories/' %}active{% endif %}">
+                <i class="fa-solid fa-layer-group"></i><span> Categories</span></a>
+            </li>
             <li><a href="{% url 'inventory' %}" class="nav-link {% if request.path == '/inventory/' %}active{% endif %}">
                 <i class="fa fa-archive"></i><span> Inventory</span></a>
             </li>

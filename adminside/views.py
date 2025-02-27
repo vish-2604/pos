@@ -34,6 +34,9 @@ def purchase(request):
     
     return render_page(request, 'adminside/purchase.html',data=sales_data)
 
+def categories(request):
+    return render_page(request, 'adminside/categories.html')
+
 def inventory(request):
     return render_page(request, 'adminside/inventory.html')
 
