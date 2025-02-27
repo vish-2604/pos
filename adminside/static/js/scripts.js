@@ -45,3 +45,5 @@ function toggleSidebar() {
     var sidebar = document.getElementById("sidebar");
     sidebar.style.width = sidebar.style.width === "250px" ? "70px" : "250px";
 }
+
+
