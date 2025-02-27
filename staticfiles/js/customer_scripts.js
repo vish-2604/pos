@@ -12,13 +12,13 @@ function toggleSearch() {
 // Search function
 document.getElementById("searchInput").addEventListener("keyup", function () {
   let filter = this.value.toLowerCase();
-  let rows = document.querySelectorAll("#staffBody tr");
+  let rows = document.querySelectorAll("#customerBody tr");
 
   rows.forEach(function (row) {
-    let fullName = row.cells[1].textContent.toLowerCase();
-    let userName = row.cells[2].textContent.toLowerCase();
+    let FirstName = row.cells[1].textContent.toLowerCase();
+    let LastName = row.cells[2].textContent.toLowerCase();
 
-    if (fullName.includes(filter) || userName.includes(filter)) {
+    if (FirstName.includes(filter) || LastName.includes(filter)) {
       row.style.display = "";
     } else {
       row.style.display = "none";
@@ -28,44 +28,39 @@ document.getElementById("searchInput").addEventListener("keyup", function () {
 
 document.addEventListener("DOMContentLoaded", function () {
   document
-    .getElementById("staffForm")
+    .getElementById("customerForm")
     .addEventListener("submit", function (event) {
       event.preventDefault();
       if (validateForm()) {
-        addStaff();
+        addCustomer();
       }
     });
 });
 
 function validateForm() {
   let email = document.getElementById("email");
-  let password = document.getElementById("password");
+  let phoneNo = document.getElementById("phoneNo");
 
   let emailValue = email.value.trim();
-  let passwordValue = password.value.trim();
+  let phoneNoValue = phoneNo.value.trim();
 
-  // Regular expressions for validation
-  let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Valid email format
-  let passwordRegex =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/; // Min 8 chars, 1 special character & 1 uppercase , 1 lowercase ,1 number
+  let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  let phoneNoRegex = /^(?:\+91[-\s]?)?[6-9]\d{9}$/;
 
-  // Remove previous error messages
   removeError(email);
-  removeError(password);
+  removeError(phoneNo);
 
   let isValid = true;
 
-  // Email Validation
   if (!emailRegex.test(emailValue)) {
     showError(email, "Enter a valid email (e.g., user@example.com)");
     isValid = false;
   }
 
-  // Password Validation
-  if (!passwordRegex.test(passwordValue)) {
+  if (!phoneNoRegex.test(phoneNoValue)) {
     showError(
-      password,
-      "Password must be at least 8 characters, with at least 1 Uppercase, 1 lowercase , 1 special character and 1 number."
+      phoneNo,
+      "Invalid Phone Format.Phone number must be 10 digits & start with 6-9 (e.g., 9876543210)"
     );
     isValid = false;
   }
@@ -91,40 +86,37 @@ function removeError(input) {
   }
 }
 
-function addStaff() {
+function addCustomer() {
   if (!validateForm()) {
-    return; // STOP adding data if validation fails
+    return;
   }
 
-  let table = document.getElementById("staffBody");
+  let table = document.getElementById("customerBody");
   let rowCount = table.rows.length + 1;
-
-  let fullName = document.getElementById("fullName").value;
-  let userName = document.getElementById("userName").value;
+  let firstName = document.getElementById("firstName").value;
+  let lastName = document.getElementById("lastName").value;
+  let address = document.getElementById("address").value;
+  let phoneNo = document.getElementById("phoneNo").value;
   let email = document.getElementById("email").value;
-  let password = document.getElementById("password").value;
-  let staffRole = document.getElementById("staffRole").value;
-  let stores = document.getElementById("Stores").value;
-  let staffImage = document.getElementById("staffImage").files[0];
+  let gender = document.getElementById("gender").value;
 
   let newRow = document.createElement("tr");
   newRow.innerHTML = `
         <td>${rowCount}</td>
-        <td><img src="${staffImage ? URL.createObjectURL(staffImage) : 'placeholder.jpg'}" class="food-img" width="50"></td>
-        <td>${fullName}</td>
-        <td>${userName}</td>
+        <td>${firstName}</td>
+        <td>${lastName}</td>
+        <td>${address}</td>
+        <td>${phoneNo}</td>
         <td>${email}</td>
-        <td>${password}</td>
-        <td>${staffRole}</td>
-        <td>${stores}</td>
+        <td>${gender}</td>
         <td class="action-buttons">
             <button class="update-btn" onclick="updateRow(this)"><i class="fas fa-edit"></i></button>
             <button class="delete-btn" onclick="deleteRow(this)"><i class="fas fa-trash"></i></button>
         </td>
     `;
-  document.getElementById("staffBody").appendChild(newRow);
+  document.getElementById("customerBody").appendChild(newRow);
 
-  document.getElementById("staffForm").reset();
+  document.getElementById("customerForm").reset();
   closeForm();
 }
 
@@ -132,16 +124,15 @@ function updateRow(button) {
   let row = button.closest("tr");
   let columns = row.getElementsByTagName("td");
 
-  document.getElementById("fullName").value = columns[2].innerText;
-  document.getElementById("userName").value = columns[3].innerText;
-  document.getElementById("email").value = columns[4].innerText;
-  document.getElementById("password").value = columns[5].innerText;
-  document.getElementById("staffRole").value = columns[6].innerText;
-  document.getElementById("Stores").value = columns[7].innerText;
-  document.getElementById("staffImage").value = columns[8].innerText;
+  document.getElementById("firstName").value = columns[1].innerText;
+  document.getElementById("lastName").value = columns[2].innerText;
+  document.getElementById("address").value = columns[3].innerText;
+  document.getElementById("phoneNo").value = columns[4].innerText;
+  document.getElementById("email").value = columns[5].innerText;
+  document.getElementById("gender").value = columns[6].innerText.trim();
 
   openForm();
-  row.remove(); // Remove the row before re-adding updated data
+  row.remove();
 }
 
 function deleteRow(button) {
@@ -151,7 +142,7 @@ function deleteRow(button) {
 function openForm() {
   document.getElementById("overlay").style.display = "block";
   document.getElementById("myForm").style.display = "block";
-  document.body.classList.add("popup-open"); 
+  document.body.classList.add("popup-open"); // Prevent background scrolling
 }
 
 function closeForm() {

@@ -1,34 +1,32 @@
-// Toggle search input on small devices
 function toggleSearch() {
-    let searchContainer = document.querySelector(".search-container");
-    let searchInput = document.querySelector(".search-input");
-  
-    searchContainer.classList.toggle("active");
-    if (searchContainer.classList.contains("active")) {
-      searchInput.focus();
-    }
+  let searchContainer = document.querySelector(".search-container");
+  let searchInput = document.querySelector(".search-input");
+
+  searchContainer.classList.toggle("active");
+  if (searchContainer.classList.contains("active")) {
+    searchInput.focus();
   }
-  
-  // Search function
-  document.getElementById("searchInput").addEventListener("keyup", function () {
-    let filter = this.value.toLowerCase();
-    let rows = document.querySelectorAll("#foodTableBody tr");
-  
-    rows.forEach(function (row) {
-      let itemName = row.cells[1].textContent.toLowerCase();
-      let category = row.cells[2].textContent.toLowerCase();
-  
-      if (itemName.includes(filter) || category.includes(filter)) {
-        row.style.display = "";
-      } else {
-        row.style.display = "none";
-      }
-    });
+}
+
+// Search function
+document.getElementById("searchInput").addEventListener("keyup", function () {
+  let filter = this.value.trim().toLowerCase();
+  let rows = document.querySelectorAll("#foodTableBody tr");
+
+  rows.forEach(function (row) {
+    let itemname = row.cells[2].textContent.trim().toLowerCase();
+    let category = row.cells[3].textContent.trim().toLowerCase();
+
+    if (itemname.includes(filter) || category.includes(filter)) {
+      row.style.display = "";
+    } else {
+      row.style.display = "none";
+    }
   });
+});
 
 
-  
- let foodItemId = 1; // Initialize ID counter
+let foodItemId = 1;
 
 document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("foodItemForm").addEventListener("submit", function (event) {
@@ -39,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
   populateStaticDropdowns();
 });
 
-// Populate static dropdowns for Name, Category, and Store
+
 function populateStaticDropdowns() {
   let names = ["Pizza", "Burger", "Pasta"];
   let categories = ["Fast Food", "Beverages", "Desserts"];
@@ -71,51 +69,97 @@ function populateStaticDropdowns() {
   });
 }
 
-// Add new food item to the table
 function addFoodItem() {
-  let itemName = document.getElementById("itemName").value;
-  let itemCategory = document.getElementById("itemCategory").value;
-  let itemDescription = document.getElementById("itemDescription").value;
-  let itemQuantity = document.getElementById("itemQuantity").value;
-  let itemStore = document.getElementById("itemStore").value;
-  let itemCost = document.getElementById("itemCost").value;
-  let itemSelling = document.getElementById("itemSelling").value;
-  let itemMFG = document.getElementById("itemMFG").value;
-  let itemExpiry = document.getElementById("itemExpiry").value;
-  let itemImage = document.getElementById("itemImage").files[0];
+  let itemName = document.getElementById("itemName");
+  let itemCategory = document.getElementById("itemCategory");
+  let itemDescription = document.getElementById("itemDescription");
+  let itemQuantity = document.getElementById("itemQuantity");
+  let itemStore = document.getElementById("itemStore");
+  let itemCost = document.getElementById("itemCost");
+  let itemSelling = document.getElementById("itemSelling");
+  let itemMFG = document.getElementById("itemMFG");
+  let itemExpiry = document.getElementById("itemExpiry");
 
-  if (!itemName || !itemCategory || !itemQuantity || !itemStore || !itemCost || !itemSelling || !itemMFG || !itemExpiry) {
-    alert("Please fill in all required fields.");
-    return;
+
+  clearErrors();
+
+  let isValid=true;
+
+  if (!itemName.value.trim()) {
+    showError("nameError", "Item name is required.");
+    isValid = false;
   }
+  if (!itemCategory.value.trim()) {
+    showError("categoryError", "Category is required.");
+    isValid = false;
+  }
+  if (!itemDescription.value.trim()) {
+    showError("descriptionError", "Description is required.");
+    isValid = false;
+  }
+  if (!itemQuantity.value.trim() || isNaN(itemQuantity.value) || itemQuantity.value <= 0) {
+    showError("quantityError", "Enter a valid quantity.");
+    isValid = false;
+  }
+  if (!itemStore.value.trim()) {
+    showError("storeError", "Store selection is required.");
+    isValid = false;
+  }
+  if (!itemCost.value.trim() || isNaN(itemCost.value) || itemCost.value <= 0) {
+    showError("costPriceError", "Enter a valid cost.");
+    isValid = false;
+  }
+  if (!itemSelling.value.trim() || isNaN(itemSelling.value) || itemSelling.value <= 0) {
+    showError("sellingPriceError", "Enter a valid selling price.");
+    isValid = false;
+  }
+  if (!itemMFG.value.trim()) {
+    showError("MFG-Error", "Manufacturing date is required.");
+    isValid = false;
+  }
+  if (!itemExpiry.value.trim()) {
+    showError("expiryError", "Expiry date is required.");
+    isValid = false;
+  }
+
+  if (!isValid) return; 
 
   let newRow = document.createElement("tr");
   newRow.innerHTML = `
         <td>${foodItemId}</td>
-        <td><img src="${itemImage ? URL.createObjectURL(itemImage) : 'placeholder.jpg'}" class="food-img" width="50"></td>
-        <td>${itemName}</td>
-        <td>${itemCategory}</td>
-        <td>${itemDescription}</td>
-        <td>${itemQuantity}</td>
-        <td>${itemStore}</td>
-        <td>${itemCost}</td>
-        <td>${itemSelling}</td>
-        <td>${itemMFG}</td>
-        <td>${itemExpiry}</td>
-        <td class="action-buttons">
-            <button class="update-btn" onclick="updateRow(this)"><i class="fas fa-edit"></i></button>
-            <button class="delete-btn" onclick="deleteRow(this)"><i class="fas fa-trash"></i></button>
+        <td>Image</td>
+        <td>${itemName.value}</td>
+        <td>${itemCategory.value}</td>
+        <td>${itemDescription.value}</td>
+        <td>${itemQuantity.value}</td>
+        <td>${itemStore.value}</td>
+        <td>${itemCost.value}</td>
+        <td>${itemSelling.value}</td>
+        <td>${itemMFG.value}</td>
+        <td>${itemExpiry.value}</td>
+        <td>
+            <button class="update-btn" onclick="updateRow(this)">Edit</button>
+            <button class="delete-btn" onclick="deleteRow(this)">Delete</button>
         </td>
     `;
 
   document.getElementById("foodTableBody").appendChild(newRow);
-  foodItemId++; // Auto-increment the ID for the next entry
+  foodItemId++;
 
   document.getElementById("foodItemForm").reset();
   closeForm();
 }
 
-// Update food item
+function showError(id, message) {
+  document.getElementById(id).textContent = message;
+}
+
+function clearErrors() {
+  document.querySelectorAll(".error-message").forEach((el) => {
+      el.textContent = "";
+  });
+}
+
 function updateRow(button) {
   let row = button.closest("tr");
   let columns = row.getElementsByTagName("td");
@@ -131,22 +175,19 @@ function updateRow(button) {
   document.getElementById("itemExpiry").value = columns[10].innerText;
 
   openForm();
-  row.remove(); // Remove the row before re-adding updated data
+  row.remove(); 
 }
 
-// Delete food item
 function deleteRow(button) {
   button.closest("tr").remove();
 }
 
-// Open popup form
 function openForm() {
   document.getElementById("overlay").style.display = "block";
   document.getElementById("myForm").style.display = "block";
   document.body.classList.add("popup-open");
 }
 
-// Close popup form
 function closeForm() {
   document.getElementById("overlay").style.display = "none";
   document.getElementById("myForm").style.display = "none";
