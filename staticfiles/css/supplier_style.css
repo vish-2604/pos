@@ -86,10 +86,12 @@
 }
 
 .fooditem-detail-table th {
+    border-bottom: 2px solid #333;
     font-size: 18px; /* Increase font size if needed */
 }
 
 .fooditem-detail-table td {
+    border-bottom:none;
     font-size: 16px;
 }
 
@@ -149,6 +151,13 @@
     width: 600px;
     max-height: 90vh;
     overflow-y: auto;
+}
+
+.error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 2px;
+    display: block;
 }
 
 .form-container {
@@ -299,7 +308,7 @@
         overflow-x: auto;
     }
 
-    .stores-detail-table {
+    .fooditem-detail-table {
         font-size: 14px;
     }
 

@@ -81,15 +81,17 @@
 .fooditem-detail-table td {
     padding: 15px 20px; /* Increase padding for more spacing */
     text-align: left;
-    border-bottom: 1px solid #ddd;
     text-wrap: nowrap;
+    
 }
 
 .fooditem-detail-table th {
+    border-bottom: 2px solid #333 !important;
     font-size: 18px; /* Increase font size if needed */
 }
 
 .fooditem-detail-table td {
+    border-bottom: 1px solid #ddd;
     font-size: 16px;
 }
 
@@ -131,7 +133,12 @@
     z-index: 1000;
 }
 
-
+.error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 2px;
+    display: block;
+}
 
 
 /* form that shows on clicking on add food item button */
