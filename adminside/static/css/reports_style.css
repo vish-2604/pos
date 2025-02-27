@@ -222,3 +222,21 @@ canvas {
         height: 200px;
     }
 }
+
+.da-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    text-align: left;
+    width: 300px; 
+    height: 380px;
+    /* position: relative;
+    text-align: left; */
+    /* width: 424px; 
+    height: 380px; */
+}

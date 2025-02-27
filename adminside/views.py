@@ -23,7 +23,7 @@ def inventory(request):
     return render_page(request, 'adminside/inventory.html')
 
 def fooditems(request):
-    return render_page(request, 'adminside/fooditems.html')
+    return render_page(request, 'adminside/fooditems.html') 
 
 def customer(request):
     return render_page(request, 'adminside/customer.html')
@@ -33,11 +33,11 @@ def staff(request):
 
 def reports(request):
     sales_data = [
-    {"invoice_no": "101", "full_name": "John Doe", "phone": "9876543210", "email": "john.doe@example.com", "total": "450", "paid": "200", "balance": "250", "date": "01/15"},
-    {"invoice_no": "102", "full_name": "Jane Smith", "phone": "9876543211", "email": "jane.smith@example.com", "total": "350", "paid": "150", "balance": "200", "date": "01/16"},
-    {"invoice_no": "103", "full_name": "Robert Brown", "phone": "9876543212", "email": "robert.brown@example.com", "total": "500", "paid": "250", "balance": "250", "date": "01/17"},
-    {"invoice_no": "104", "full_name": "Emily White", "phone": "9876543213", "email": "emily.white@example.com", "total": "600", "paid": "300", "balance": "300", "date": "01/18"},
-    {"invoice_no": "105", "full_name": "Michael Green", "phone": "9876543214", "email": "michael.green@example.com", "total": "750", "paid": "500", "balance": "250", "date": "01/19"},
+    {"product_id": "101", "product_name": "Neapolitan Pizaa", "calegories": "Pizaa", "email": "john.doe@example.com", "quentity": "450", "paid": "200", "balance": "250", "date": "01/15"},
+    {"product_id": "102", "product_name": "Veg. Burger", "calegories": "Burger", "email": "jane.smith@example.com", "quentity": "350", "paid": "150", "balance": "200", "date": "01/16"},
+    {"product_id": "103", "product_name": "French Fries", "calegories": "Fast Food", "email": "robert.brown@example.com", "quentity": "500", "paid": "250", "balance": "250", "date": "01/17"},
+    {"product_id": "104", "product_name": "Veg. Sandvich", "calegories": "Sandvich", "email": "emily.white@example.com", "quentity": "600", "paid": "300", "balance": "300", "date": "01/18"},
+    {"product_id": "105", "product_name": "Dosa (Butter)", "calegories": "South Indian", "email": "michael.green@example.com", "quentity": "750", "paid": "500", "balance": "250", "date": "01/19"},
     ]
     return render_page(request, 'adminside/reports.html', data=sales_data)
 
