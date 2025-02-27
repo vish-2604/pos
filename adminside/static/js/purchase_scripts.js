@@ -125,21 +125,20 @@ let ID = 1;
 let updateIndex = null; // Track the row index to update
 
 document.addEventListener("DOMContentLoaded", function () {
-  document.getElementById("storeForm").addEventListener("submit", function (event) {
+  document.getElementById("purchaseForm").addEventListener("submit", function (event) {
     event.preventDefault();
-    if (validateForm()){
-        if (updateIndex !== null) {
-          saveUpdatedStore();
-        } else {
-          addstore();
-        }
-      }
+    if (updateIndex !== null) {
+        saveUpdatedpurchase();
+    } else {
+        addpurchases();
+    }
+      
   });
   populateStaticDropdowns();
 });
 
 function populateStaticDropdowns() {
-  let statuss = ["Open", "Close"];
+  let statuss = ["Done", "Remain"];
   let statusDropdown = document.getElementById("status");
   statuss.forEach(status => {
     let option = document.createElement("option");
@@ -149,25 +148,24 @@ function populateStaticDropdowns() {
   });
 }
 
-function addstore() {
-  let location = document.getElementById("location").value;
-  let area = document.getElementById("storeArea").value;
-  let manager = document.getElementById("managerID").value;
-  let Phone_no = document.getElementById("PhoneNo").value;
+function addpurchases() {
+  let foodItem = document.getElementById("foodItem").value;
+  let quantity = document.getElementById("quantity").value;
+  let cost = document.getElementById("cost").value;
+  let SupID = document.getElementById("SupID").value;
   let Status = document.getElementById("status").value;
 
-  if (!location || !area || !manager || !Phone_no || !Status) {
+  if (!foodItem || !quantity || !cost || !SupID || !Status) {
     alert("Please fill in all required fields.");
     return;
   }
 
   let newRow = document.createElement("tr");
   newRow.innerHTML = `
-        <td>${ID}</td>
-        <td>${location}</td>
-        <td>${area}</td>
-        <td>${manager}</td>
-        <td>${Phone_no}</td>
+        <td>${foodItem}</td>
+        <td>${quantity}</td>
+        <td>${cost}</td>
+        <td>${SupID}</td>
         <td>${Status}</td>
         <td class="action-buttons">
             <button class="update-btn" onclick="updateRow(this)"><i class="fas fa-edit"></i></button>
@@ -177,7 +175,7 @@ function addstore() {
 
   document.getElementById("storeTableBody").appendChild(newRow);
   ID++;
-  document.getElementById("storeForm").reset();
+  document.getElementById("purchaseForm").reset();
   closeForm();
 }
 
@@ -185,10 +183,10 @@ function updateRow(button) {
   let row = button.closest("tr");
   let columns = row.getElementsByTagName("td");
 
-  document.getElementById("location").value = columns[1].textContent;
-  document.getElementById("storeArea").value = columns[2].textContent;
-  document.getElementById("managerID").value = columns[3].textContent;
-  document.getElementById("PhoneNo").value = columns[4].textContent;
+  document.getElementById("foodItem").value = columns[1].textContent;
+  document.getElementById("quantity").value = columns[2].textContent;
+  document.getElementById("cost").value = columns[3].textContent;
+  document.getElementById("SupID").value = columns[4].textContent;
   document.getElementById("status").value = columns[5].textContent;
 
   updateIndex = row; // Store the reference to the row instead of removing it
@@ -196,43 +194,25 @@ function updateRow(button) {
   openForm();
 }
 
-function validateForm(){
-  let phoneno = document.getElementById("PhoneNo").value.trim();
-  let phoneNoRegex = /^(?:\+91[-\s]?)?[6-9]\d{9}$/;
-
-  removeError(phoneno);
-
-  let isValid = true;
-  
-  
-
-  if (!phoneNoRegex.test(phoneno)) {
-    alert(
-      
-      "Invalid Phone Format.Phone number must be 10 digits & start with 6-9 (e.g., 9876543210)"
-    );
-    isValid = false;
-  }
-  return isValid;
-}
 
 
-function saveUpdatedStore() {
+
+function saveUpdatedpurchase() {
   if (updateIndex) {
-    let location = document.getElementById("location").value;
-    let area = document.getElementById("storeArea").value;
-    let manager = document.getElementById("managerID").value;
-    let Phone_no = document.getElementById("PhoneNo").value;
+    let foodItem = document.getElementById("foodItem").value;
+    let quantity = document.getElementById("quantity").value;
+    let cost = document.getElementById("cost").value;
+    let SupID = document.getElementById("SupID").value;
     let Status = document.getElementById("status").value;
 
-    updateIndex.cells[1].textContent = location;
-    updateIndex.cells[2].textContent = area;
-    updateIndex.cells[3].textContent = manager;
-    updateIndex.cells[4].textContent = Phone_no;
+    updateIndex.cells[1].textContent = foodItem;
+    updateIndex.cells[2].textContent = quantity;
+    updateIndex.cells[3].textContent = cost;
+    updateIndex.cells[4].textContent = SupID;
     updateIndex.cells[5].textContent = Status;
 
     updateIndex = null;
-    document.getElementById("storeForm").reset();
+    document.getElementById("purchaseForm").reset();
     closeForm();
   }
 }
@@ -241,22 +221,7 @@ function deleteRow(button) {
   button.closest("tr").remove();
 }
 
-function showError(input, message) {
-  let errorSpan = document.createElement("span");
-  errorSpan.classList.add("error-message");
-  errorSpan.style.color = "red";
-  errorSpan.style.fontSize = "12px";
-  errorSpan.innerText = message;
-  input.parentNode.appendChild(errorSpan);
-}
 
-// Function to remove previous error messages
-function removeError(input) {
-  let error = input.parentNode.querySelector(".error-message");
-  if (error) {
-    error.remove();
-  }
-}
 
 
 function openForm() {
