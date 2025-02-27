@@ -37,6 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   populateStaticDropdowns();
+  
 });
 
 // Populate static dropdowns for Name, Category, and Store
@@ -103,9 +104,6 @@ function updateRow(button) {
   document.getElementById("manager").value = columns[3].innerText;
   document.getElementById("PhoneNo").value = columns[4].innerText;
   document.getElementById("status").value = columns[5].innerText;
-//   document.getElementById("itemSelling").value = columns[8].innerText;
-//   document.getElementById("itemMFG").value = columns[9].innerText;
-//   document.getElementById("itemExpiry").value = columns[10].innerText;
 
   openForm();
   row.remove(); // Remove the row before re-adding updated data
