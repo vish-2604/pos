@@ -28,25 +28,20 @@ function toggleSearch() {
 
 
   
- let ID = 1; // Initialize ID counter
+ let ID = 1;
 
 document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("storeForm").addEventListener("submit", function (event) {
     event.preventDefault();
     addstore();
   });
-
   populateStaticDropdowns();
 });
 
-// Populate static dropdowns for Name, Category, and Store
+
 function populateStaticDropdowns() {
   let statuss = ["Open","Close"];
-
-
   let statusDropdown = document.getElementById("status");
-
-
   statuss.forEach(status => {
     let option = document.createElement("option");
     option.value = status;
@@ -56,24 +51,21 @@ function populateStaticDropdowns() {
 
 }
 
-// Add new store details to the table
+
 function addstore() {
-  let storeid = document.getElementById("storeID").value;
   let storeName = document.getElementById("storeName").value;
   let location = document.getElementById("location").value;
   let manager = document.getElementById("manager").value;
   let Phone_no = document.getElementById("PhoneNo").value;
   let Status = document.getElementById("status").value;
-
-
-  if (!storeid|| !storeName || !location || !manager  || !Phone_no || !Status) {
+  if (!storeName || !location || !manager  || !Phone_no || !Status) 
+    {
     alert("Please fill in all required fields.");
     return;
   }
-
   let newRow = document.createElement("tr");
   newRow.innerHTML = `
-        <td>${storeid}</td>
+        <td>${ID}</td>
         <td>${storeName}</td>
         <td>${location}</td>
         <td>${manager}</td>
@@ -84,10 +76,8 @@ function addstore() {
             <button class="delete-btn" onclick="deleteRow(this)"><i class="fas fa-trash"></i></button>
         </td>
     `;
-
   document.getElementById("storeTableBody").appendChild(newRow);
-  foodItemId++; // Auto-increment the ID for the next entry
-
+  ID++; 
   document.getElementById("storeForm").reset();
   closeForm();
 }
@@ -97,18 +87,14 @@ function updateRow(button) {
   let row = button.closest("tr");
   let columns = row.getElementsByTagName("td");
 
-  document.getElementById("storeID").value = columns[0].innerText;
   document.getElementById("storeName").value = columns[1].innerText;
   document.getElementById("location").value = columns[2].innerText;
   document.getElementById("manager").value = columns[3].innerText;
   document.getElementById("PhoneNo").value = columns[4].innerText;
   document.getElementById("status").value = columns[5].innerText;
-//   document.getElementById("itemSelling").value = columns[8].innerText;
-//   document.getElementById("itemMFG").value = columns[9].innerText;
-//   document.getElementById("itemExpiry").value = columns[10].innerText;
 
   openForm();
-  row.remove(); // Remove the row before re-adding updated data
+  row.remove(); 
 }
 
 // Delete food item

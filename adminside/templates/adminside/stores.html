@@ -30,17 +30,7 @@
     <form id="storeForm" class="form-container">
         <h1 class="mb-3">Add Store</h1>
 
-        <!-- <div class="form-group">
-            <div class="input-group">
-                <label for="itemImage"><b>Image</b></label>
-                <input type="file" id="itemImage" accept="image/*">
-            </div> -->
         <div class="form-group">
-            <div class="input-group">
-                <label for="StoreID"><b>ID</b></label>
-                <input type="number" id="storeID" placeholder="Enter store" required>
-                
-            </div>
             <div class="input-group">
                <label for="storeName">Name </label>
                <input type="text" id="storeName" placeholder="Store name" required>
@@ -74,45 +64,9 @@
         </div>
     </div>
 
-        <!-- <div class="form-group">
-            <div class="input-group">
-                <label for="itemCategory"><b>Category</b></label>
-                <select id="itemCategory">
-                    <option value="">Select Category</option>
-                </select>
-            </div>
-            <div class="input-group full-width">
-                <label for="itemDescription"><b>Description</b></label>
-                <textarea id="itemDescription" placeholder="Enter Description"x  required></textarea>
-            </div>
-        </div> -->
-
-        
-
-        <!-- <div class="form-group"> -->
-            <!-- <div class="input-group">
-                <label for="itemCost"><b>Cost Price</b></label>
-                <input type="number" id="itemCost" placeholder="Enter Cost Price" required>
-            </div>
-            <div class="input-group">
-                <label for="itemSelling"><b>Selling Price</b></label>
-                <input type="number" id="itemSelling" placeholder="Enter Selling Price" required>
-            </div>
-        </div> -->
-<!-- 
-        <div class="form-group">
-            <div class="input-group">
-                <label for="itemMFG"><b>MFG Date</b></label>
-                <input type="date" id="itemMFG" required>
-            </div>
-            <div class="input-group">
-                <label for="itemExpiry"><b>Expiry Date</b></label>
-                <input type="date" id="itemExpiry" required>
-            </div>
-        </div> -->
-
+  
         <div class="form-buttons">
-          <button type="submit" class="btn">Add</button>
+          <button type="button" onclick="addstore()" class="btn">Add</button>
           <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
         </div>
     </form>
@@ -120,7 +74,7 @@
 
   <div class="table-responsive">
     <table class="table stores-detail-table">
-      <thead>
+      <thead style=" border-bottom: 2px solid #333 !important">
         <tr>
           <th>ID</th>
           <th>Name</th>
@@ -137,3 +91,4 @@
 </div>
 
 <script src="{% static 'js/stores_scripts.js' %}"></script>
+
