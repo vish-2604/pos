@@ -1,6 +1,9 @@
 .dashboard-container {
     margin-left: 10px;
 }
+:root {
+    --color: #5e6790;
+  }
 
 .title-row {
     margin-top: 24px;
