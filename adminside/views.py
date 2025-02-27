@@ -11,28 +11,13 @@ def dashboard(request):
     return render_page(request, 'adminside/dashboard.html')
 
 def stores(request):
-    sales_data = [
-    {"invoice_no": "101", "full_name": "John Doe", "phone": "9876543210", "email": "john.doe@example.com", "total": "450", "paid": "200", "balance": "250", "date": "01/15"},
-    {"invoice_no": "102", "full_name": "Jane Smith", "phone": "9876543211", "email": "jane.smith@example.com", "total": "350", "paid": "150", "balance": "200", "date": "01/16"},
-    {"invoice_no": "103", "full_name": "Robert Brown", "phone": "9876543212", "email": "robert.brown@example.com", "total": "500", "paid": "250", "balance": "250", "date": "01/17"},
-    {"invoice_no": "104", "full_name": "Emily White", "phone": "9876543213", "email": "emily.white@example.com", "total": "600", "paid": "300", "balance": "300", "date": "01/18"},
-    {"invoice_no": "105", "full_name": "Michael Green", "phone": "9876543214", "email": "michael.green@example.com", "total": "750", "paid": "500", "balance": "250", "date": "01/19"},
-    ]
-    return render_page(request, 'adminside/stores.html', data=sales_data)
+    return render_page(request, 'adminside/stores.html')
 
 def suppliers(request):
     return render_page(request, 'adminside/suppliers.html')
 
 def purchase(request):
-    sales_data = [
-    {"invoice_no": "101", "full_name": "John Doe", "phone": "9876543210", "email": "john.doe@example.com", "total": "450", "paid": "200", "balance": "250", "date": "01/15"},
-    {"invoice_no": "102", "full_name": "Jane Smith", "phone": "9876543211", "email": "jane.smith@example.com", "total": "350", "paid": "150", "balance": "200", "date": "01/16"},
-    {"invoice_no": "103", "full_name": "Robert Brown", "phone": "9876543212", "email": "robert.brown@example.com", "total": "500", "paid": "250", "balance": "250", "date": "01/17"},
-    {"invoice_no": "104", "full_name": "Emily White", "phone": "9876543213", "email": "emily.white@example.com", "total": "600", "paid": "300", "balance": "300", "date": "01/18"},
-    {"invoice_no": "105", "full_name": "Michael Green", "phone": "9876543214", "email": "michael.green@example.com", "total": "750", "paid": "500", "balance": "250", "date": "01/19"},
-    ]
-    
-    return render_page(request, 'adminside/purchase.html',data=sales_data)
+    return render_page(request, 'adminside/purchase.html')
 
 def inventory(request):
     return render_page(request, 'adminside/inventory.html')
@@ -78,9 +63,6 @@ def profile(request):
     return render_settings_page(request,"adminside/settings/profile.html")
 
 def logout_view(request):
-    sales_data = [
-    {"invoice_no": "101", "full_name": "John Doe", "phone": "9876543210", "email": "john.doe@example.com", "total": "450", "paid": "200", "balance": "250", "date": "01/15"},
     
-    ]
-    return render_page(request, 'adminside/logout.html',data=sales_data)
+    return render_page(request, 'adminside/logout.html')
 

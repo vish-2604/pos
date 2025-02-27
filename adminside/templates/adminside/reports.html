@@ -12,7 +12,7 @@
 
 <div class="staff-page">
   <div class="staff-title mt-4">
-    <h3>Store</h3>
+    <h3>REPORT</h3>
 
     <div class="search-container">
       <input
@@ -63,7 +63,8 @@
                         data-total={{ i.total }}
                         data-paid="{{ i.paid }}"
                         data-balance="{{ i.balance }}"
-                        data-date="{{ i.date }}">
+                        data-date="{{ i.date }}"
+                        data-due={{i.total}}-{{i.paid}}>
                     Pay Now
                 </button>
             </td>

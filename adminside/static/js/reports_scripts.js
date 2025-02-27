@@ -1,7 +1,6 @@
 
 document.addEventListener("DOMContentLoaded", function () {
     const modal = new bootstrap.Modal(document.getElementById("detailsModal"));
-    
 
     document.querySelectorAll(".paymentnow").forEach(button => {
         button.addEventListener("click", function () {
@@ -11,13 +10,16 @@ document.addEventListener("DOMContentLoaded", function () {
             const date = this.getAttribute("data-date");
             const invoice = this.getAttribute("data-invoice");
             const paid = this.getAttribute("data-paid");
+            const due = this.getAttribute("data-due");
+
 
 
             // Set modal values
+            
             document.getElementById("modal-total").textContent = `₹${total}`;
             document.getElementById("modal-paid").textContent = `₹${paid}`;
             document.getElementById("modal-balance").textContent = `₹${balance}`;
-            document.getElementById("modal-due").textContent = `₹${total-paid}`;
+            document.getElementById("modal-due").textContent = `₹${due}`;
 
             // Store invoice number in submit button for reference
             document.getElementById("submit-payment").setAttribute("data-invoice", invoice);
@@ -29,8 +31,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Handle Payment Submission
     document.getElementById("submit-payment").addEventListener("click", function () {
-        const invoice = this.getAttribute("data-invoice");
-        const amount = document.getElementById("payment-amount").value;
+        let invoice = this.getAttribute("data-invoice");
+        let amount = document.getElementById("payment-amount").value;
 
         if (!amount ||amount<=0)  {
             alert("Please enter a valid payment amount.");
