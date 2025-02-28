@@ -322,6 +322,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   populateStaticDropdowns();
+  
 });
 
 function populateStaticDropdowns() {
