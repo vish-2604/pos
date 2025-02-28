@@ -306,114 +306,110 @@ function toggleSearch() {
 
 
 
-let ID = 1;
-let updateIndex = null; // Stores the row reference for update
-
-document.addEventListener("DOMContentLoaded", function () {
-  document.getElementById("storeForm").addEventListener("submit", function (event) {
-    event.preventDefault();
-    if (validateForm()) {
+  let ID = 1;
+  let updateIndex = null; // Stores the row reference for update
+  
+  document.addEventListener("DOMContentLoaded", function () {
+    // Handle form submission
+    document.getElementById("purchaseForm").addEventListener("submit", function (event) {
+      event.preventDefault();
       if (updateIndex !== null) {
         saveUpdatedStore(); // Update existing row
       } else {
-        addStore(); // Add new row
+        addpurchases(); // Add new row
       }
-    }
+    });
+  
+    populateStaticDropdowns();
   });
-
-  populateStaticDropdowns();
-});
-
-function populateStaticDropdowns() {
-  let statuss = ["Open", "Close"];
-  let statusDropdown = document.getElementById("status");
-  statuss.forEach(status => {
-    let option = document.createElement("option");
-    option.value = status;
-    option.textContent = status;
-    statusDropdown.appendChild(option);
-  });
-}
-
-function addStore() {
-  let location = document.getElementById("location").value.trim();
-  let area = document.getElementById("storeArea").value.trim();
-  let manager = document.getElementById("managerID").value.trim();
-  let phoneNo = document.getElementById("PhoneNo").value.trim();
-  let status = document.getElementById("status").value;
-
-  if (!location || !area || !manager || !phoneNo || !status) {
-    alert("Please fill in all required fields.");
-    return;
+  
+  // Populate status dropdown
+  function populateStaticDropdowns() {
+    let statuss = ["Done", "Remain"];
+    let statusDropdown = document.getElementById("status");
+    statuss.forEach(status => {
+      let option = document.createElement("option");
+      option.value = status;
+      option.textContent = status;
+      statusDropdown.appendChild(option);
+    });
   }
-
-  let newRow = document.createElement("tr");
-  newRow.innerHTML = `
-        <td>${ID}</td>
-        <td>${location}</td>
-        <td>${area}</td>
-        <td>${manager}</td>
-        <td>${phoneNo}</td>
-        <td>${status}</td>
-        <td class="action-buttons">
-            <button class="update-btn" onclick="updateRow(this)"><i class="fas fa-edit"></i></button>
-            <button class="delete-btn" onclick="deleteRow(this)"><i class="fas fa-trash"></i></button>
-        </td>
-    `;
-
-  document.getElementById("storeTableBody").appendChild(newRow);
-  ID++;
-  document.getElementById("storeForm").reset();
-  closeForm();
-}
-
-function updateRow(button) {
-  let row = button.closest("tr");
-  let columns = row.getElementsByTagName("td");
-
-  document.getElementById("location").value = columns[1].textContent;
-  document.getElementById("storeArea").value = columns[2].textContent;
-  document.getElementById("managerID").value = columns[3].textContent;
-  document.getElementById("PhoneNo").value = columns[4].textContent;
-  document.getElementById("status").value = columns[5].textContent;
-
-  updateIndex = row; // Store reference to the row for updating
-
-  openForm();
-}
-
-function validateForm() {
-  let phoneNo = document.getElementById("PhoneNo").value.trim();
-  let phoneNoRegex = /^(?:\+91[-\s]?)?[6-9]\d{9}$/;
-
-  removeError(document.getElementById("PhoneNo"));
-
-  if (!phoneNoRegex.test(phoneNo)) {
-    alert("Invalid Phone Format. Phone number must be 10 digits & start with 6-9 (e.g., 9876543210)");
-    return false;
-  }
-  return true;
-}
-
-function saveUpdatedStore() {
-  if (updateIndex) {
-    let location = document.getElementById("location").value;
-    let area = document.getElementById("storeArea").value;
-    let manager = document.getElementById("managerID").value;
-    let phoneNo = document.getElementById("PhoneNo").value;
+  
+  // Function to add a new purchase
+  function addpurchases() {
+    let foodItem = document.getElementById("foodItem").value.trim();
+    let quantity = document.getElementById("quantity").value.trim();
+    let cost = document.getElementById("cost").value.trim();
+    let SupID = document.getElementById("SupID").value.trim();
+    let purchaseDate = document.getElementById("purchaseDate").value.trim();
     let status = document.getElementById("status").value;
-
-    updateIndex.cells[1].textContent = location;
-    updateIndex.cells[2].textContent = area;
-    updateIndex.cells[3].textContent = manager;
-    updateIndex.cells[4].textContent = phoneNo;
-    updateIndex.cells[5].textContent = status;
-
-    updateIndex = null; // Reset after update
-    document.getElementById("storeForm").reset();
-    closeForm();
+  
+    // Validation to ensure no empty fields
+    if (!foodItem || !quantity || !cost || !SupID || !purchaseDate || !status) {
+      alert("Please fill in all required fields.");
+      return;
+    }
+  
+    let newRow = document.createElement("tr");
+    newRow.innerHTML = `
+      <td>${ID}</td>
+      <td>${foodItem}</td>
+      <td>${quantity}</td>
+      <td>${cost}</td>
+      <td>${SupID}</td>
+      <td>${purchaseDate}</td>
+      <td>${status}</td>
+      <td class="action-buttons">
+          <button class="update-btn" onclick="updateRow(this)"><i class="fas fa-edit"></i></button>
+          <button class="delete-btn" onclick="deleteRow(this)"><i class="fas fa-trash"></i></button>
+      </td>
+    `;
+  
+    document.getElementById("purchaseTableBody").appendChild(newRow);
+    ID++; // Increment the ID for the next row
+    document.getElementById("purchaseForm").reset(); // Reset the form fields
+    closeForm(); // Close the form popup after adding the row
   }
-}
+  
+  // Function to update a row
+  function updateRow(button) {
+    let row = button.closest("tr");
+    let columns = row.getElementsByTagName("td");
+  
+    document.getElementById("foodItem").value = columns[1].textContent;
+    document.getElementById("quantity").value = columns[2].textContent;
+    document.getElementById("cost").value = columns[3].textContent;
+    document.getElementById("SupID").value = columns[4].textContent;
+    document.getElementById("purchaseDate").value = columns[5].textContent;
+    document.getElementById("status").value = columns[6].textContent;
+  
+    updateIndex = row; // Store reference to the row for updating
+  
+    openForm();
+  }
+  
+  // Function to save the updated store details
+  function saveUpdatedStore() {
+    if (updateIndex) {
+      let foodItem = document.getElementById("foodItem").value;
+      let quantity = document.getElementById("quantity").value;
+      let cost = document.getElementById("cost").value;
+      let SupID = document.getElementById("SupID").value;
+      let purchaseDate = document.getElementById("purchaseDate").value;
+      let status = document.getElementById("status").value;
+  
+      updateIndex.cells[1].textContent = foodItem;
+      updateIndex.cells[2].textContent = quantity;
+      updateIndex.cells[3].textContent = cost;
+      updateIndex.cells[4].textContent = SupID;
+      updateIndex.cells[5].textContent = purchaseDate;
+      updateIndex.cells[6].textContent = status;
+  
+      updateIndex = null; // Reset after update
+      document.getElementById("purchaseForm").reset();
+      closeForm();
+    }
+  }
 
 function deleteRow(button) {
   button.closest("tr").remove();
