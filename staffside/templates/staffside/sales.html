@@ -1,5 +1,7 @@
 {% load static %}
-
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/sales_style.css' %}">
+{% endblock %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -71,8 +73,14 @@
 
         <!-- Order History & Search -->
         <div class="card mt-4 p-3">
-            <h5>Sales Details</h5>
-            <input type="text" class="form-control mb-3" placeholder="Search Order ID or Customer Name">
+            <h3>Sales Details</h3>
+            <div class="search-container">
+                <input type="text" id="searchInput" class="search-input" placeholder="Search by store or manager">
+                <button class="search-btn" onclick="toggleSearch()">
+                  <i class="fa fa-search"></i>
+                </button>
+            </div>
+            <!-- <input type="text" class="form-control mb-3" placeholder="Search Order ID or Customer Name"> -->
             <table class="table table-responsive">
                 <thead>
                     <tr>
