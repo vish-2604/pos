@@ -1,4 +1,70 @@
+{%load static%}
+<table class="table">
+    <thead>
+        <tr>
+            <th>Invoice No</th>
+            <th>Full Name</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Total</th>
+            <th>Paid</th>
+            <th>Balance</th>
+            <th>Date</th>
+            <th>Action</th> <!-- New Column for Payment Button -->
+        </tr>
+    </thead>
+    <tbody>
+        {% for sale in sales_data %}
+        <tr>
+            <td>{{ sale.invoice_no }}</td>
+            <td>{{ sale.full_name }}</td>
+            <td>{{ sale.phone }}</td>
+            <td>{{ sale.email }}</td>
+            <td>{{ sale.total }}</td>
+            <td>{{ sale.paid }}</td>
+            <td>{{ sale.balance }}</td>
+            <td>{{ sale.date }}</td>
+            <td>
+                <!-- Payment Button to open modal -->
+                <button class="btn btn-success payment-btn" data-invoice="{{ sale.invoice_no }}">
+                    Payment
+                </button>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="9">No sales data available</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 
-    <h2>Purchase</h2>
-    <p>Manage all purchase here.</p>
-
+<!-- Payment MODAL BOX -->
+<div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="paymentModalLabel">Payment Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p><strong>Invoice No:</strong> <span id="modal-invoice"></span></p>
+                <p><strong>Full Name:</strong> <span id="modal-fullname"></span></p>
+                <p><strong>Phone:</strong> <span id="modal-phone"></span></p>
+                <p><strong>Email:</strong> <span id="modal-email"></span></p>
+                <p><strong>Total:</strong> <span id="modal-total"></span></p>
+                <p><strong>Paid:</strong> <span id="modal-paid"></span></p>
+                <p><strong>Balance:</strong> <span id="modal-balance"></span></p>
+                <p><strong>Date:</strong> <span id="modal-date"></span></p>
+                <hr>
+                <h5>Make Payment</h5>
+                <input type="number" id="payment-amount" class="form-control" placeholder="Enter amount">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="pay-now-btn">Pay Now</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{% static 'js/settings_scripts.js' %}"></script>
