@@ -340,9 +340,9 @@ function addStore() {
   let area = document.getElementById("storeArea").value.trim();
   let manager = document.getElementById("managerID").value.trim();
   let phoneNo = document.getElementById("PhoneNo").value.trim();
-  let status = document.getElementById("status").value;
+  // let status = document.getElementById("status").value;
 
-  if (!location || !area || !manager || !phoneNo || !status) {
+  if (!location || !area || !manager || !phoneNo ) {
     alert("Please fill in all required fields.");
     return;
   }
@@ -354,7 +354,12 @@ function addStore() {
         <td>${area}</td>
         <td>${manager}</td>
         <td>${phoneNo}</td>
-        <td>${status}</td>
+        <td>
+            <label class="switch">
+                <input type="checkbox" onclick="toggleStatus(this)" checked>
+                <span class="slider round"></span>
+            </label>
+        </td>
         <td class="action-buttons">
             <button class="update-btn" onclick="updateRow(this)"><i class="fas fa-edit"></i></button>
             <button class="delete-btn" onclick="deleteRow(this)"><i class="fas fa-trash"></i></button>
@@ -367,6 +372,14 @@ function addStore() {
   closeForm();
 }
 
+function toggleStatus(checkbox)
+ {
+    if (checkbox.checked) {
+        console.log("Status: ON");
+    } else {
+        console.log("Status: OFF");
+    }
+}
 function updateRow(button) {
   let row = button.closest("tr");
   let columns = row.getElementsByTagName("td");
@@ -375,7 +388,7 @@ function updateRow(button) {
   document.getElementById("storeArea").value = columns[2].textContent;
   document.getElementById("managerID").value = columns[3].textContent;
   document.getElementById("PhoneNo").value = columns[4].textContent;
-  document.getElementById("status").value = columns[5].textContent;
+  // document.getElementById("status").value = columns[5].textContent;
 
   updateIndex = row; // Store reference to the row for updating
 
@@ -401,13 +414,13 @@ function saveUpdatedStore() {
     let area = document.getElementById("storeArea").value;
     let manager = document.getElementById("managerID").value;
     let phoneNo = document.getElementById("PhoneNo").value;
-    let status = document.getElementById("status").value;
+    // let status = document.getElementById("status").value;
 
     updateIndex.cells[1].textContent = location;
     updateIndex.cells[2].textContent = area;
     updateIndex.cells[3].textContent = manager;
     updateIndex.cells[4].textContent = phoneNo;
-    updateIndex.cells[5].textContent = status;
+    // updateIndex.cells[5].textContent = status;
 
     updateIndex = null; // Reset after update
     document.getElementById("storeForm").reset();
