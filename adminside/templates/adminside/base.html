@@ -54,6 +54,9 @@
             <li><a href="{% url 'purchase' %}" class="nav-link {% if request.path == '/purchase/' %}active{% endif %}">
                 <i class="fa fa-credit-card"></i><span> Purchase</span></a>
             </li>
+            <li><a href="{% url 'categories' %}" class="nav-link {% if request.path == '/categories/' %}active{% endif %}">
+                <i class="fa-solid fa-layer-group"></i><span> Categories</span></a>
+            </li>
             <li><a href="{% url 'inventory' %}" class="nav-link {% if request.path == '/inventory/' %}active{% endif %}">
                 <i class="fa fa-archive"></i><span> Inventory</span></a>
             </li>
@@ -67,7 +70,7 @@
                 <i class="fa fa-users"></i><span> Staff</span></a>
             </li>
             <li><a href="{% url 'reports' %}" class="nav-link {% if request.path == '/reports/' %}active{% endif %}">
-                <i class="fa fa-file-alt"></i><span> Reports</span></a>
+                <i class="fa fa-file-alt"></i><span>Sales Reports</span></a>
             </li>
             <li><a href="{% url 'settings' %}" class="nav-link {% if request.path == '/settings/' %}active{% endif %}">
                 <i class="fa fa-cogs"></i><span> Settings</span></a>
