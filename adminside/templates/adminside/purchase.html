@@ -1,6 +1,6 @@
 {% load static %}
 {% block title %}
-<title>Chains</title>
+<title>Purchases</title>
 {% endblock %}
 {% block css %}
 <link rel="stylesheet" href="{% static 'css/purchase_style.css' %}">
@@ -29,24 +29,24 @@
   <div class="form-popup" id="myForm">
     <form id="purchaseForm" class="form-container">
         <h1 class="mb-3">Add details</h1>
-
+      
 
         <div class="form-group">
           <div class="input-group">
-              <label for="FoodItem"><b>Food Item</b></label>
+              <label for="foodItem"><b>Food Item</b></label>
               <input type="text" id="foodItem" placeholder="Enter Food Item" required>
               
           </div>
           <div class="input-group">
-             <label for="Quantity">Quantity</label>
+             <label for="quantity">Quantity</label>
              <input type="number" name="Null" id="quantity" placeholder="Enter Quantity" required>
           </div>
       </div>
 
       <div class="form-group">
         <div class="input-group">
-          <label for="CostPrice">Cost Price</label>
-          <input type="number" name="Null" id="cost" step="10" placeholder="Enter Cost price" required>
+          <label for="cost">Cost Price</label>
+          <input type="number" name="Null" id="cost" placeholder="Enter Cost price" required>
         </div>
 
 
@@ -61,15 +61,15 @@
     
     <div class="form-group">
       <div class="input-group">
-        <label for="SupID"><b>Purchased Date</b></label>
+        <label for="purchaseDate"><b>Purchased Date</b></label>
         <input type="date" id="purchaseDate" placeholder="Enter Purchased Date" required>
         
       </div>
        
       <div class="input-group">
-        <label for="storeManager">Payment Status </label>
+        <label for="status">Payment Status </label>
         <select id="status">
-         <option value="">Payment Status</option>
+         <!-- <option value="">Payment Status</option> -->
          
         </select>
      </div>
