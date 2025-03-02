@@ -59,7 +59,7 @@
                     </ul>
                 </div>
             </div> -->
-            <div class="row mt-4">
+            <!-- <div class="row mt-4">
                 <div class="col-md-12">
                     <div class="card p-3">
                         <h5>Payment Breakdown</h5>
@@ -68,7 +68,7 @@
                                 <strong>Cash:</strong> $1,000.00 <br>
                                 <small>Customers: 15</small> <br>
                                 <small>Transaction Fees: $0.00</small>
-                            </li>
+                            </li> -->
                             <!-- <li class="list-group-item">
                                 <strong>Card:</strong> $950.00 <br>
                                 <small>Customers: 12</small> <br>
@@ -79,10 +79,10 @@
                                 <small>Customers: 8</small> <br>
                                 <small>Transaction Fees: $5.00</small>
                             </li> -->
-                        </ul>
+                        <!-- </ul>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <!-- <div class="col-md-6">
                 <div class="card p-3">
                     <h5>Staff Performance</h5>
@@ -101,7 +101,7 @@
             <div class="d-flex mb-3" >
                 <input type="text" id="searchInput" class="form-control me-2" placeholder="Search by order id or Customer Name">
                 <span>
-                    <button class="search-btn" onclick="toggleSearch()">
+                    <button class="search-btn btn btn-outline-primary" onclick="filterTable()">
                     <i class="fa fa-search"></i>
                     </button>
                 </span> 
@@ -125,7 +125,7 @@
                         <td>#1023</td>
                         <td>Michael</td>
                         <td>$45.00</td>
-                        <td>Card</td>
+                        <td>Cash</td>
                         <td></td>
                         <td></td>
                         <td><button class="btn btn-sm btn-primary">Reprint Receipt</button></td>
@@ -139,12 +139,92 @@
                         <td></td>
                         <td><button class="btn btn-sm btn-primary">Reprint Receipt</button></td>
                     </tr>
+                    <tr>
+                        <td>#1023</td>
+                        <td>Rahil</td>
+                        <td>$30.00</td>
+                        <td>Cash</td>   
+                        <td></td>
+                        <td></td>
+                        <td><button class="btn btn-sm btn-primary">Reprint Receipt</button></td>
+                    </tr>
+                    <tr>
+                        <td>#1050</td>
+                        <td>Vishal</td>
+                        <td>$30.00</td>
+                        <td>Cash</td>   
+                        <td></td>
+                        <td></td>
+                        <td><button class="btn btn-sm btn-primary">Reprint Receipt</button></td>
+                    </tr>
+                    <tr>
+                        <td>#1050</td>
+                        <td>Vijay</td>
+                        <td>$30.00</td>
+                        <td>Cash</td>   
+                        <td></td>
+                        <td></td>
+                        <td><button class="btn btn-sm btn-primary">Reprint Receipt</button></td>
+                    </tr>
+                    <tr>
+                        <td>#1050</td>
+                        <td>Logan</td>
+                        <td>$30.00</td>
+                        <td>Cash</td>   
+                        <td></td>
+                        <td></td>
+                        <td><button class="btn btn-sm btn-primary">Reprint Receipt</button></td>
+                    </tr>
                 </tbody>
           
             </table>
           </div>
         </div>
     </div>
-    <script src="{% static 'js/sales_scripts.js' %}"></script>
+    <!-- <script src="{% static 'js/sales_scripts.js' %}"> -->
+    <script>   
+    // Function to filter the table rows based on search input
+    function filterTable() {
+      console.log("filterTable() function called");
+      var input = document.getElementById("searchInput");
+      var filter = input.value.toUpperCase();
+      console.log("Search value:", filter);
+      
+      var table = document.querySelector("table");
+      if (!table) {
+        console.error("Table element not found!");
+        return;
+      }
+      var tr = table.getElementsByTagName("tr");
+      
+    //   Loop through table rows (skip the header row)
+    for (var i = 1; i < tr.length; i++) {
+        var orderCell = tr[i].getElementsByTagName("td")[0];
+        var customerCell = tr[i].getElementsByTagName("td")[1];
+        
+        var orderText = orderCell ? orderCell.textContent || orderCell.innerText : "";
+        var customerText = customerCell ? customerCell.textContent || customerCell.innerText : "";
+        
+        console.log("Row", i, "Order:", orderText, "Customer:", customerText);
+        
+        if (orderText.toUpperCase().indexOf(filter) > -1 || customerText.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
+        }
+      }
+    }
+    
+    // Attach event listener for live search when the DOM is fully loaded
+    document.addEventListener("DOMContentLoaded", function() {
+      var searchInput = document.getElementById("searchInput");
+      if (searchInput) {
+        searchInput.addEventListener("keyup", filterTable);
+      } else {
+        console.error("Search input not found!");
+      }
+    }); 
+  
+    </script>
 </body>
 </html>
