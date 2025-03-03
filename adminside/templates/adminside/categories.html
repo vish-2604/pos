@@ -1,9 +1,7 @@
-{% load static %}
-{% block title %}
+{% load static %} {% block title %}
 <title>Inventory</title>
-{% endblock %}
-{% block css %}
-<link rel="stylesheet" href="{% static 'css/categories_style.css' %}">
+{% endblock %} {% block css %}
+<link rel="stylesheet" href="{% static 'css/categories_style.css' %}" />
 {% endblock %}
 
 <div class="food-items-page">
@@ -11,13 +9,21 @@
     <h3>CATEGORY</h3>
 
     <div class="search-container">
-      <input type="text" id="searchInput" class="search-input" placeholder="Search by food-item name">
+      <input
+        type="text"
+        id="searchInput"
+        class="search-input"
+        placeholder="Search by food-item"
+      />
       <button class="search-btn" onclick="toggleSearch()">
         <i class="fa fa-search"></i>
       </button>
     </div>
 
-    <button class="open-button add-fooditems-button rounded-3" onclick="openForm(false)">
+    <button
+      class="open-button add-fooditems-button rounded-3"
+      onclick="openForm(false)"
+    >
       <span class="btn-text">
         <i class="fa-solid fa-plus plus-icon"></i> Add Category
       </span>
@@ -28,24 +34,26 @@
   <div class="overlay" id="overlay" onclick="closeForm()"></div>
   <div class="form-popup" id="myForm">
     <form id="foodItemForm" class="form-container">
-        <h1 class="mb-3">Add Category</h1>
+      <h1 class="mb-3">Add Category</h1>
 
-        <div class="form-group">
-            <label for="itemName"><b>Category Name</b></label>
-            <input type="text" id="itemName" placeholder="Enter category name">
-            <span class="error-message" id="nameError"></span>
-        </div>
+      <div class="form-group">
+        <label for="itemName"><b>Category Name</b></label>
+        <input type="text" id="itemName" placeholder="Enter category name" />
+        <span class="error-message" id="nameError"></span>
+      </div>
 
-        <div class="form-buttons">
-          <button type="submit" class="btn">Add</button>
-          <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
-        </div>
+      <div class="form-buttons">
+        <button type="submit" class="btn">Add</button>
+        <button type="button" class="btn cancel" onclick="closeForm()">
+          Close
+        </button>
+      </div>
     </form>
   </div>
 
   <div class="table-responsive">
     <table class="table fooditem-detail-table">
-      <thead style=" border-bottom: 2px solid #333 !important">
+      <thead style="border-bottom: 2px solid #333 !important">
         <tr>
           <th>ID</th>
           <th>Name</th>

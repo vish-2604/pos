@@ -25,18 +25,18 @@ document.getElementById("searchInput").addEventListener("keyup", function () {
   });
 });
 
-
 let foodItemId = 1;
 
 document.addEventListener("DOMContentLoaded", function () {
-  document.getElementById("foodItemForm").addEventListener("submit", function (event) {
-    event.preventDefault();
-    addFoodItem();
-  });
+  document
+    .getElementById("foodItemForm")
+    .addEventListener("submit", function (event) {
+      event.preventDefault();
+      addFoodItem();
+    });
 
   populateStaticDropdowns();
 });
-
 
 function populateStaticDropdowns() {
   let names = ["Pizza", "Burger", "Pasta"];
@@ -47,21 +47,21 @@ function populateStaticDropdowns() {
   let categoryDropdown = document.getElementById("itemCategory");
   let storeDropdown = document.getElementById("itemStore");
 
-  names.forEach(name => {
+  names.forEach((name) => {
     let option = document.createElement("option");
     option.value = name;
     option.textContent = name;
     nameDropdown.appendChild(option);
   });
 
-  categories.forEach(category => {
+  categories.forEach((category) => {
     let option = document.createElement("option");
     option.value = category;
     option.textContent = category;
     categoryDropdown.appendChild(option);
   });
 
-  stores.forEach(store => {
+  stores.forEach((store) => {
     let option = document.createElement("option");
     option.value = store;
     option.textContent = store;
@@ -80,10 +80,9 @@ function addFoodItem() {
   let itemMFG = document.getElementById("itemMFG");
   let itemExpiry = document.getElementById("itemExpiry");
 
-
   clearErrors();
 
-  let isValid=true;
+  let isValid = true;
 
   if (!itemName.value.trim()) {
     showError("nameError", "Item name is required.");
@@ -97,7 +96,11 @@ function addFoodItem() {
     showError("descriptionError", "Description is required.");
     isValid = false;
   }
-  if (!itemQuantity.value.trim() || isNaN(itemQuantity.value) || itemQuantity.value <= 0) {
+  if (
+    !itemQuantity.value.trim() ||
+    isNaN(itemQuantity.value) ||
+    itemQuantity.value <= 0
+  ) {
     showError("quantityError", "Enter a valid quantity.");
     isValid = false;
   }
@@ -109,7 +112,11 @@ function addFoodItem() {
     showError("costPriceError", "Enter a valid cost.");
     isValid = false;
   }
-  if (!itemSelling.value.trim() || isNaN(itemSelling.value) || itemSelling.value <= 0) {
+  if (
+    !itemSelling.value.trim() ||
+    isNaN(itemSelling.value) ||
+    itemSelling.value <= 0
+  ) {
     showError("sellingPriceError", "Enter a valid selling price.");
     isValid = false;
   }
@@ -122,7 +129,7 @@ function addFoodItem() {
     isValid = false;
   }
 
-  if (!isValid) return; 
+  if (!isValid) return;
 
   let newRow = document.createElement("tr");
   newRow.innerHTML = `
@@ -156,7 +163,7 @@ function showError(id, message) {
 
 function clearErrors() {
   document.querySelectorAll(".error-message").forEach((el) => {
-      el.textContent = "";
+    el.textContent = "";
   });
 }
 
@@ -175,7 +182,7 @@ function updateRow(button) {
   document.getElementById("itemExpiry").value = columns[10].innerText;
 
   openForm();
-  row.remove(); 
+  row.remove();
 }
 
 function deleteRow(button) {

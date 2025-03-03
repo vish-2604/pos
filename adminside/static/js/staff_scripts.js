@@ -40,6 +40,8 @@ document.addEventListener("DOMContentLoaded", function () {
 function validateForm() {
   let email = document.getElementById("email");
   let password = document.getElementById("password");
+  let staffRole = document.getElementById("staffRole").value;
+  let branch = document.getElementById("Stores").value;
 
   let emailValue = email.value.trim();
   let passwordValue = password.value.trim();
@@ -52,7 +54,7 @@ function validateForm() {
   // Remove previous error messages
   removeError(email);
   removeError(password);
-
+  clearErrors();
   let isValid = true;
 
   // Email Validation
@@ -67,6 +69,16 @@ function validateForm() {
       password,
       "Password must be at least 8 characters, with at least 1 Uppercase, 1 lowercase , 1 special character and 1 number."
     );
+    isValid = false;
+  }
+
+  if (!staffRole.trim()) {
+    showError("staffRole", "Staff selection is required.");
+    isValid = false;
+  }
+
+  if (!branch.trim()) {
+    showError("branch", "Branch selection is required.");
     isValid = false;
   }
 
@@ -108,7 +120,7 @@ function addStaff() {
   let email = document.getElementById("email").value;
   let password = document.getElementById("password").value;
   let staffRole = document.getElementById("staffRole").value;
-  let stores = document.getElementById("Stores").value;
+  let branch = document.getElementById("Stores").value;
   let staffImageInput = document.getElementById("staffImage");
 
   let staffImage =
@@ -125,7 +137,7 @@ function addStaff() {
         <td>${email}</td>
         <td>${password}</td>
         <td>${staffRole}</td>
-        <td>${stores}</td>
+        <td>${branch}</td>
         <td class="action-buttons">
             <button class="update-btn" onclick="updateRow(this)"><i class="fas fa-edit"></i></button>
             <button class="delete-btn" onclick="deleteRow(this)"><i class="fas fa-trash"></i></button>
@@ -170,4 +182,10 @@ function closeForm() {
   document.getElementById("overlay").style.display = "none";
   document.getElementById("myForm").style.display = "none";
   document.body.classList.remove("popup-open");
+}
+
+function clearErrors() {
+  document.querySelectorAll(".error-message").forEach((el) => {
+    el.textContent = "";
+  });
 }
