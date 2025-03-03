@@ -42,14 +42,14 @@
             <h2>POS System</h2>
         </div>
         <ul>
+            <li><a href="{% url 'staffside:pos' %}" class="nav-link {% if request.path == '/staffside/pos/' %}active{% endif %}">
+                <i class="fa-solid fa-cash-register"></i><span> POS</span></a>
+            </li>
             <li><a href="{% url 'staffside:orders' %}" class="nav-link {% if request.path == '/staffside/orders/' %}active{% endif %}">
                 <i class="fa-solid fa-receipt"></i><span> Orders</span></a>
             </li>
             <li><a href="{% url 'staffside:tables' %}" class="nav-link {% if request.path == '/staffside/tables/' %}active{% endif %}">
                 <i class="fa-solid fa-table"></i><span> Tables</span></a>
-            </li>
-            <li><a href="{% url 'staffside:pos' %}" class="nav-link {% if request.path == '/staffside/pos/' %}active{% endif %}">
-                <i class="fa-solid fa-cash-register"></i><span> POS</span></a>
             </li>
             <li><a href="{% url 'staffside:sales' %}" class="nav-link {% if request.path == '/staffside/sales/' %}active{% endif %}">
                 <i class="fa-solid fa-chart-line"></i><span> Sales</span></a>
