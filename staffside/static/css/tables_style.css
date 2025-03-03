@@ -4,7 +4,9 @@
   background-color: white;
   align-content: center;
 }
-
+.nav-item a {
+  color: #000;
+}
 .nav-pills .nav-link.active {
   background-color: #f9c784;
   border: #f9c784;
@@ -72,15 +74,15 @@
   transform: translateY(-50%) rotate(180deg);
 }
 
-.seat.top{
-    top: 45px;
+.seat.top {
+  top: 45px;
 }
-.seat.bottom{
-    bottom: 45px;
+.seat.bottom {
+  bottom: 45px;
 }
 .seat.left {
   left: 40px;
-  transform:rotate(90deg);
+  transform: rotate(90deg);
 }
 
 .seat.right {
@@ -139,19 +141,19 @@ p {
 }
 
 @media screen and (max-width: 330px) {
-.seat.top.left {
-  left: 32%;
-}
+  .seat.top.left {
+    left: 32%;
+  }
 
-.seat.top.right {
-  right: 32%;
-}
+  .seat.top.right {
+    right: 32%;
+  }
 
-.seat.bottom.left {
-  left: 32%;
-}
+  .seat.bottom.left {
+    left: 32%;
+  }
 
-.seat.bottom.right {
-  right: 32%;
-}
+  .seat.bottom.right {
+    right: 32%;
+  }
 }
