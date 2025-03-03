@@ -4,7 +4,7 @@ from .forms import CustomPasswordChangeForm
 
 def home(request):
     # return HttpResponse("<h1>hello</h1>")
-    return redirect('staffside:orders')
+    return redirect('staffside:pos')
 
 def render_page(request, template, data=None):
     return render(request, "staffside/base.html", {"template": template, "data":data})
