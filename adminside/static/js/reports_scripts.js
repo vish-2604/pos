@@ -1,4 +1,12 @@
-
+function toggleSearch() {
+    let searchContainer = document.querySelector(".search-container");
+    let searchInput = document.querySelector(".search-input");
+  
+    searchContainer.classList.toggle("active");
+    if (searchContainer.classList.contains("active")) {
+      searchInput.focus();
+    }
+  } 
 document.addEventListener("DOMContentLoaded", function () {
     const modal = new bootstrap.Modal(document.getElementById("detailsModal"));
     

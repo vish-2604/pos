@@ -1,1 +1,107 @@
-<h1>Table</h1>
+{% load static %} {% block title %}
+<title>Tables</title>
+{% endblock %} {% block css %}
+<link rel="stylesheet" href="{% static 'css/tables_style.css' %}" />
+{% endblock %}
+
+<div class="table-container mt-4">
+  <div class="table-bar rounded px-1">
+      <ul class="nav nav-pills" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" data-bs-toggle="pill" href="#allTables">All Tables</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-bs-toggle="pill" href="#vacant">Vacant</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-bs-toggle="pill" href="#occupied">Occupied</a>
+    </li>
+        <li class="nav-item">
+      <a class="nav-link" data-bs-toggle="pill" href="#reserved">Reserved</a>
+    </li>
+  </ul>
+  </div>
+
+  <div class="tab-content">
+    <div id="allTables" class="container tab-pane fad show active"><br>
+        <div class="d-flex flex-wrap justify-content-center">
+            <div class="table-card vacant">
+                <div class="table-shape">
+                    <p class="table-text">T-1</p>
+                </div>
+                <div class="seat top"></div>
+                <div class="seat bottom"></div>
+                <div class="seat left"></div>
+                <div class="seat right"></div>
+            </div>
+            <div class="table-card reserved"> 
+                <div class="seat top left"></div>
+                <div class="seat top right"></div>
+                <div class="seat left"></div>
+                <div class="table-shape">
+                    <p class="table-text">T-2</p>
+                </div>
+                <div class="seat right"></div>
+                <div class="seat bottom left"></div>
+                <div class="seat bottom right"></div>
+            </div>
+            <div class="table-card vacant">
+                 <div class="table-shape">
+                    <p class="table-text">T-3</p>
+                </div>
+                <div class="seat top"></div>
+                <div class="seat bottom"></div>
+                <div class="seat left"></div>
+                <div class="seat right"></div>
+            </div>
+            <div class="table-card occupied"> 
+                <div class="seat top left"></div>
+                <div class="seat top right"></div>
+                <div class="seat left"></div>
+                <div class="table-shape">
+                    <p class="table-text">T-4</p>
+                </div>
+                <div class="seat right"></div>
+                <div class="seat bottom left"></div>
+                <div class="seat bottom right"></div>
+            </div>
+            <div class="table-card occupied"> <div class="table-shape">
+                    <p class="table-text">T-5</p>
+                </div>
+                <div class="seat top"></div>
+                <div class="seat bottom"></div>
+                <div class="seat left"></div>
+                <div class="seat right"></div>
+            </div>
+            <div class="table-card vacant"> 
+                <div class="seat top left"></div>
+                <div class="seat top right"></div>
+                <div class="seat left"></div>
+                <div class="table-shape">
+                    <p class="table-text">T-6</p>
+                </div>
+                <div class="seat right"></div>
+                <div class="seat bottom left"></div>
+                <div class="seat bottom right"></div>
+            </div>
+        </div>
+    </div>
+    <div id="vacant" class="container tab-pane fade"><br>
+        <div class="d-flex flex-wrap justify-content-center">
+        </div>
+    </div>
+    <div id="occupied" class="container tab-pane fade"><br>
+        <div class="d-flex flex-wrap justify-content-center">
+
+        </div>
+    </div>
+    <div id="reserved" class="container tab-pane fade"><br>
+        <div class="d-flex flex-wrap justify-content-center">
+        </div>
+  </div>
+    </div>
+  </div>
+
+</div>
+
+<script src="{% static 'js/tables_scripts.js' %}"></script>

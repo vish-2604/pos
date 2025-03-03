@@ -27,13 +27,14 @@ document.getElementById("searchInput").addEventListener("keyup", function () {
 });
 
 let supplierId = 1; // Auto-increment ID counter
+let currentRow = null;
+
 
 document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("supplierForm").addEventListener("submit", function (event) {
         event.preventDefault();
         addSupplier();
     });
-
     populateStaticDropdowns();
 });
 
@@ -65,6 +66,8 @@ function addSupplier() {
     clearErrors();
 
     let isValid = true;
+
+
 
     // Email validation
     let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -109,26 +112,35 @@ function addSupplier() {
     if (!isValid) return; // Stop execution if validation fails
 
     // Add row if validation passes
-    let newRow = document.createElement("tr");
-    newRow.innerHTML = `
-        <td>${supplierId}</td>
-        <td>${name}</td>
-        <td>${companyName}</td>
-        <td>${email}</td>
-        <td>${address}</td>
-        <td>${phone}</td>
-        <td>${store}</td>
-        <td class="action-buttons">
-            <button class="update-btn" onclick="updateRow(this)"><i class="fas fa-edit"></i></button>
-            <button class="delete-btn" onclick="deleteRow(this)"><i class="fas fa-trash"></i></button>
-        </td>
-    `;
 
+    if (currentRow) {
+        // If updating an existing row
+        currentRow.cells[1].innerText = itemName;
+    }
+    else {
+
+        let newRow = document.createElement("tr");
+        newRow.innerHTML = `
+    <td>${supplierId}</td>
+    <td>${name}</td>
+    <td>${companyName}</td>
+    <td>${email}</td>
+    <td>${address}</td>
+    <td>${phone}</td>
+    <td>${store}</td>
+    <td class="action-buttons">
+    <button class="update-btn" onclick="updateRow(this)"><i class="fas fa-edit"></i></button>
+    <button class="delete-btn" onclick="deleteRow(this)"><i class="fas fa-trash"></i></button>
+    </td>
+    `;
+    
     document.getElementById("supplierTableBody").appendChild(newRow);
     supplierId++;
+}
 
     document.getElementById("supplierForm").reset();
     closeForm();
+    currentRow = null
 }
 
 // Function to display error messages
@@ -145,20 +157,22 @@ function clearErrors() {
 
 // Update supplier details (Fix: Keep supplier ID)
 function updateRow(button) {
-    let row = button.closest("tr");
+    currentRow = button.closest("tr");
     let columns = row.getElementsByTagName("td");
 
-    let currentId = columns[0].innerText; // Store supplier ID before deleting the row
+    let sname = currentRow.cells[1].innerText;
+    let cname = currentRow.cells[1].innerText;
+    let semail = currentRow.cells[1].innerText;
+    let saddr = currentRow.cells[1].innerText;
+    let sphone = currentRow.cells[1].innerText;
+    let store = currentRow.cells[1].innerText;
 
-    document.getElementById("supplierName").value = columns[1].innerText;
-    document.getElementById("companyName").value = columns[2].innerText;
-    document.getElementById("supplierEmail").value = columns[3].innerText;
-    document.getElementById("supplierAddress").value = columns[4].innerText;
-    document.getElementById("supplierPhone").value = columns[5].innerText;
-    document.getElementById("supplierStore").value = columns[6].innerText;
-
-    row.remove();
-    supplierId = currentId; // Keep the same ID for the updated supplier
+    document.getElementById("supplierName").value = sname;
+    document.getElementById("companyName").value = cname;
+    document.getElementById("supplierEmail").value = semail;
+    document.getElementById("supplierAddress").value = saddr;
+    document.getElementById("supplierPhone").value = sphone;
+    document.getElementById("supplierStore").value = store;
 
     openForm();
 }
@@ -172,10 +186,13 @@ function deleteRow(button) {
 function openForm() {
     document.getElementById("overlay").style.display = "block";
     document.getElementById("myForm").style.display = "block";
+    document.body.classList.add("popup-open");
 }
 
 // Close popup form
 function closeForm() {
     document.getElementById("overlay").style.display = "none";
     document.getElementById("myForm").style.display = "none";
+    document.body.classList.add("popup-open");
+    currentRow = null;
 }
