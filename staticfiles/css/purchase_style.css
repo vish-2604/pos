@@ -1,9 +1,7 @@
 * {
     font-family: "Nunito", sans-serif;
 }
-:root {
-    --color: #5e6790;
-  }
+
 /* food item text search and add item button */
 .food-item-title {
     display: flex;
@@ -199,9 +197,9 @@
 .form-container input:focus,
 .form-container select:focus {
     background-color: #fff;
-    border-color: var(--color);
+    border-color: #04AA6D;
     outline: none;
-    box-shadow: 0 0 5px var(--color);
+    box-shadow: 0 0 5px rgba(4, 170, 109, 0.5);
 }
 
 .form-container .btn {

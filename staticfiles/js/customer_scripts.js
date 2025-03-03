@@ -11,14 +11,15 @@ function toggleSearch() {
 
 // Search function
 document.getElementById("searchInput").addEventListener("keyup", function () {
-  let filter = this.value.toLowerCase();
+  let filter = this.value.trim().toLowerCase();
   let rows = document.querySelectorAll("#customerBody tr");
 
   rows.forEach(function (row) {
-    let FirstName = row.cells[1].textContent.toLowerCase();
-    let LastName = row.cells[2].textContent.toLowerCase();
+    let firstName = row.cells[1].textContent.trim().toLowerCase();
+    let lastName = row.cells[2].textContent.trim().toLowerCase();
+    let fullName = `${firstName} ${lastName}`;
 
-    if (FirstName.includes(filter) || LastName.includes(filter)) {
+    if (firstName.includes(filter) || lastName.includes(filter) || fullName.includes(filter)) {
       row.style.display = "";
     } else {
       row.style.display = "none";
@@ -26,13 +27,18 @@ document.getElementById("searchInput").addEventListener("keyup", function () {
   });
 });
 
+let ID = 1;
+let updateIndex = null
+
 document.addEventListener("DOMContentLoaded", function () {
   document
     .getElementById("customerForm")
     .addEventListener("submit", function (event) {
       event.preventDefault();
-      if (validateForm()) {
-        addCustomer();
+      if (updateIndex !== null) {
+        saveUpdatedStore();
+      } else {
+        addstore();
       }
     });
 });
@@ -91,8 +97,6 @@ function addCustomer() {
     return;
   }
 
-  let table = document.getElementById("customerBody");
-  let rowCount = table.rows.length + 1;
   let firstName = document.getElementById("firstName").value;
   let lastName = document.getElementById("lastName").value;
   let address = document.getElementById("address").value;
@@ -102,7 +106,7 @@ function addCustomer() {
 
   let newRow = document.createElement("tr");
   newRow.innerHTML = `
-        <td>${rowCount}</td>
+        <td>${ID}</td>
         <td>${firstName}</td>
         <td>${lastName}</td>
         <td>${address}</td>
@@ -115,7 +119,7 @@ function addCustomer() {
         </td>
     `;
   document.getElementById("customerBody").appendChild(newRow);
-
+  ID++;
   document.getElementById("customerForm").reset();
   closeForm();
 }
@@ -131,8 +135,36 @@ function updateRow(button) {
   document.getElementById("email").value = columns[5].innerText;
   document.getElementById("gender").value = columns[6].innerText.trim();
 
+  updateIndex = row;
   openForm();
-  row.remove();
+}
+
+function saveUpdatedData() {
+  if (updateIndex) {
+
+
+    let columns = currentRow.getElementsByTagName("td");
+
+    let fname = document.getElementById("firstName").value;
+    let lname = document.getElementById("lastName").value;
+    let addr = document.getElementById("address").value;
+    let phoneno = document.getElementById("phoneNo").value;
+    let email = document.getElementById("email").value;
+    let gender = document.getElementById("gender").value;
+
+    updateIndex.cells[1].textContent = fname;
+    updateIndex.cells[2].textContent = lname;
+    updateIndex.cells[3].textContent = addr;
+    updateIndex.cells[4].textContent = phoneno;
+    updateIndex.cells[5].textContent = email;
+    updateIndex.cells[6].textContent = gender;
+
+
+
+    updateIndex = null;
+    document.getElementById("storeForm").reset();
+    closeForm();
+  }
 }
 
 function deleteRow(button) {
@@ -149,4 +181,5 @@ function closeForm() {
   document.getElementById("overlay").style.display = "none";
   document.getElementById("myForm").style.display = "none";
   document.body.classList.remove("popup-open");
+  updateIndex = null;
 }
