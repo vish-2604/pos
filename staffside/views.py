@@ -4,7 +4,7 @@ from .forms import CustomPasswordChangeForm
 
 def home(request):
     # return HttpResponse("<h1>hello</h1>")
-    return redirect('orders')
+    return redirect('staffside:orders')
 
 def render_page(request, template):
     if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
@@ -27,8 +27,8 @@ def customer(request):
     return render_page(request, 'staffside/customer.html')
 
 
-def settings_view(request):
-    return redirect('profile')
+def staffside_settings_view(request):
+    return redirect('staffside:profile')
 
 def render_settings_page(request, template, context=None):
     if request.headers.get('X-Requested-With') == 'XMLHttpRequest':

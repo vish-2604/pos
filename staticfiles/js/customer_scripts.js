@@ -11,15 +11,14 @@ function toggleSearch() {
 
 // Search function
 document.getElementById("searchInput").addEventListener("keyup", function () {
-  let filter = this.value.trim().toLowerCase();
+  let filter = this.value.toLowerCase();
   let rows = document.querySelectorAll("#customerBody tr");
 
   rows.forEach(function (row) {
-    let firstName = row.cells[1].textContent.trim().toLowerCase();
-    let lastName = row.cells[2].textContent.trim().toLowerCase();
-    let fullName = `${firstName} ${lastName}`;
+    let fullName = row.cells[1].textContent.toLowerCase();
+    let userName = row.cells[2].textContent.toLowerCase();
 
-    if (firstName.includes(filter) || lastName.includes(filter) || fullName.includes(filter)) {
+    if (fullName.includes(filter) || userName.includes(filter)) {
       row.style.display = "";
     } else {
       row.style.display = "none";
@@ -27,18 +26,13 @@ document.getElementById("searchInput").addEventListener("keyup", function () {
   });
 });
 
-let ID = 1;
-let updateIndex = null
-
 document.addEventListener("DOMContentLoaded", function () {
   document
     .getElementById("customerForm")
     .addEventListener("submit", function (event) {
       event.preventDefault();
-      if (updateIndex !== null) {
-        saveUpdatedStore();
-      } else {
-        addstore();
+      if (validateForm()) {
+        addCustomer();
       }
     });
 });
@@ -50,19 +44,23 @@ function validateForm() {
   let emailValue = email.value.trim();
   let phoneNoValue = phoneNo.value.trim();
 
-  let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  // Regular expressions for validation
+  let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Valid email format
   let phoneNoRegex = /^(?:\+91[-\s]?)?[6-9]\d{9}$/;
 
+  // Remove previous error messages
   removeError(email);
   removeError(phoneNo);
 
   let isValid = true;
 
+  // Email Validation
   if (!emailRegex.test(emailValue)) {
     showError(email, "Enter a valid email (e.g., user@example.com)");
     isValid = false;
   }
 
+  // Password Validation
   if (!phoneNoRegex.test(phoneNoValue)) {
     showError(
       phoneNo,
@@ -94,8 +92,11 @@ function removeError(input) {
 
 function addCustomer() {
   if (!validateForm()) {
-    return;
+    return; // STOP adding data if validation fails
   }
+
+  let table = document.getElementById("customerBody");
+  let rowCount = table.rows.length + 1;
 
   let firstName = document.getElementById("firstName").value;
   let lastName = document.getElementById("lastName").value;
@@ -106,7 +107,7 @@ function addCustomer() {
 
   let newRow = document.createElement("tr");
   newRow.innerHTML = `
-        <td>${ID}</td>
+        <td>${rowCount}</td>
         <td>${firstName}</td>
         <td>${lastName}</td>
         <td>${address}</td>
@@ -119,7 +120,7 @@ function addCustomer() {
         </td>
     `;
   document.getElementById("customerBody").appendChild(newRow);
-  ID++;
+
   document.getElementById("customerForm").reset();
   closeForm();
 }
@@ -135,36 +136,8 @@ function updateRow(button) {
   document.getElementById("email").value = columns[5].innerText;
   document.getElementById("gender").value = columns[6].innerText.trim();
 
-  updateIndex = row;
   openForm();
-}
-
-function saveUpdatedData() {
-  if (updateIndex) {
-
-
-    let columns = currentRow.getElementsByTagName("td");
-
-    let fname = document.getElementById("firstName").value;
-    let lname = document.getElementById("lastName").value;
-    let addr = document.getElementById("address").value;
-    let phoneno = document.getElementById("phoneNo").value;
-    let email = document.getElementById("email").value;
-    let gender = document.getElementById("gender").value;
-
-    updateIndex.cells[1].textContent = fname;
-    updateIndex.cells[2].textContent = lname;
-    updateIndex.cells[3].textContent = addr;
-    updateIndex.cells[4].textContent = phoneno;
-    updateIndex.cells[5].textContent = email;
-    updateIndex.cells[6].textContent = gender;
-
-
-
-    updateIndex = null;
-    document.getElementById("storeForm").reset();
-    closeForm();
-  }
+  row.remove(); // Remove the row before re-adding updated data
 }
 
 function deleteRow(button) {
@@ -174,12 +147,11 @@ function deleteRow(button) {
 function openForm() {
   document.getElementById("overlay").style.display = "block";
   document.getElementById("myForm").style.display = "block";
-  document.body.classList.add("popup-open"); // Prevent background scrolling
+  document.body.classList.add("popup-open");
 }
 
 function closeForm() {
   document.getElementById("overlay").style.display = "none";
   document.getElementById("myForm").style.display = "none";
   document.body.classList.remove("popup-open");
-  updateIndex = null;
 }

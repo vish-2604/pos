@@ -1,0 +1,65 @@
+.active {
+    border-bottom: 2px solid black;
+    font-weight: bold;
+}
+
+.quantity-container {
+    display: flex;
+    align-items: center;
+    /* Ensures vertical alignment */
+    justify-content: flex-start;
+    gap: 10px;
+    /* Add space between buttons and quantity text */
+}
+
+/* Quantity label styling */
+.quantity-label {
+    font-size: 16px;
+    font-weight: bold;
+    margin-right: 10px;
+    /* Space between the label and the buttons */
+}
+
+/* Make the buttons smaller and centered */
+.btn-light {
+    width: 20px;
+    height: 20px;
+    font-size: 16px;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: white;
+    color: black;
+    line-height: 1;
+    /* Ensures that the text inside the button is centered */
+}
+
+/* Align text in the center of buttons */
+.quantity-text {
+    font-size: 18px;
+    /* Slightly larger font for better alignment */
+    font-weight: bold;
+    display: inline-block;
+    /* Keeps the quantity text inline with buttons */
+    text-align: center;
+    line-height: 30px;
+    /* Aligns text vertically with the button */
+}
+
+/* Adjust for smaller screens */
+@media (max-width: 576px) {
+    .btn-light {
+        width: 25px;
+        height: 25px;
+        font-size: 14px;
+    }
+
+    .quantity-text {
+        font-size: 14px;
+        /* Adjust the quantity text size on smaller screens */
+        line-height: 25px;
+        /* Align text vertically with smaller buttons */
+    }
+}

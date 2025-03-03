@@ -147,8 +147,11 @@ function updateRow(button) {
   document.getElementById("password").value = columns[5].innerText;
   document.getElementById("staffRole").value = columns[6].innerText;
   document.getElementById("Stores").value = columns[7].innerText;
-  document.getElementById("staffImage").value = columns[0].innerText;
 
+  let image = document.getElementById("staffImage");
+  if (image) {
+    image.src = columns[1].querySelector("img").src;
+  }
   openForm();
   row.remove(); // Remove the row before re-adding updated data
 }
