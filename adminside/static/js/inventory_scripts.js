@@ -145,8 +145,8 @@ function addFoodItem() {
         <td>${itemMFG.value}</td>
         <td>${itemExpiry.value}</td>
         <td>
-            <button class="update-btn" onclick="updateRow(this)">Edit</button>
-            <button class="delete-btn" onclick="deleteRow(this)">Delete</button>
+            <button class="update-btn" onclick="updateRow(this)"><i class="fas fa-edit"></i></button>
+            <button class="delete-btn" onclick="deleteRow(this)"><i class="fas fa-trash"></i></button>
         </td>
     `;
 
