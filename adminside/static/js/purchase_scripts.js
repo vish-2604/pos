@@ -290,7 +290,7 @@ function toggleSearch() {
   // Search function
   document.getElementById("searchInput").addEventListener("keyup", function () {
     let filter = this.value.toLowerCase();
-    let rows = document.querySelectorAll("#storeTableBody tr");
+    let rows = document.querySelectorAll("#purchaseTableBody tr");
   
     rows.forEach(function (row) {
       let store = row.cells[1].textContent.toLowerCase();
@@ -385,9 +385,15 @@ function toggleSearch() {
   
     updateIndex = row; // Store reference to the row for updating
   
-    openForm();
+    openForm(true);
   }
   
+  function resetForm() {
+    document.getElementById("purchaseForm").reset(); // Resets all input fields
+  }
+ 
+
+
   // Function to save the updated store details
   function saveUpdatedStore() {
     if (updateIndex) {
@@ -418,7 +424,7 @@ function deleteRow(button) {
 function showError(input, message) {
   let errorSpan = document.createElement("span");
   errorSpan.classList.add("error-message");
-  errorSpan.style.color = "red";
+  errorSpan.style.color = "red";  
   errorSpan.style.fontSize = "12px";
   errorSpan.innerText = message;
   input.parentNode.appendChild(errorSpan);
@@ -431,16 +437,25 @@ function removeError(input) {
   }
 }
 
-function openForm() {
+// function openForm() {
+//   document.getElementById("overlay").style.display = "block";
+//   document.getElementById("myForm").style.display = "block";
+//   document.body.classList.add("popup-open");
+// }
+function openForm(isUpdate = false) {
   document.getElementById("overlay").style.display = "block";
   document.getElementById("myForm").style.display = "block";
   document.body.classList.add("popup-open");
-}
 
+  if (!isUpdate) {
+      resetForm();  // Clears the form ONLY when adding a new chain
+      updateIndex = null; // Clear any previous update reference
+  }
+}
 function closeForm() {
   document.getElementById("overlay").style.display = "none";
   document.getElementById("myForm").style.display = "none";
   document.body.classList.remove("popup-open");
-
+    
   updateIndex = null; // Reset update index when closing the form
 }

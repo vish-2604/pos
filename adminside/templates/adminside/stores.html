@@ -8,7 +8,7 @@
 
 <div class="food-items-page">
   <div class="food-item-title mt-4">
-    <h3>Restaurant Chains</h3>
+    <h3>Restaurant Branches</h3>
 
     <div class="search-container">
       <input type="text" id="searchInput" class="search-input" placeholder="Search by store or manager">
@@ -17,9 +17,9 @@
       </button>
     </div>
 
-    <button class="open-button add-fooditems-button rounded-3" onclick="openForm()">
+    <button class="open-button add-fooditems-button rounded-3" onclick="openForm(false)">
       <span class="btn-text">
-        <i class="fa-solid fa-plus plus-icon"></i> Add Chain
+        <i class="fa-solid fa-plus plus-icon"></i> Add Branch
       </span>
       <span class="btn-icon"><i class="fa-solid fa-plus plus-icon"></i></span>
     </button>
@@ -28,7 +28,7 @@
   <div class="overlay" id="overlay" onclick="closeForm()"></div>
   <div class="form-popup" id="myForm">
     <form id="storeForm" class="form-container">
-        <h1 class="mb-3">Add Chain</h1>
+        <h1 class="mb-3">Add Branch</h1>
 
 
         <div class="form-group">
