@@ -97,10 +97,10 @@ p {
 }
 
 .vacant {
-  border-bottom: 5px solid #f89b34;
+  border-bottom: 5px solid #2a9c00;
 }
 .occupied {
-  border-bottom: 5px solid #b5b95d;
+  border-bottom: 5px solid #ff0000;
 }
 .reserved {
   border-bottom: 5px solid #f7c93c;
