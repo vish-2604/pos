@@ -6,13 +6,18 @@ def home(request):
     # return HttpResponse("<h1>hello</h1>")
     return redirect('staffside:orders')
 
-def render_page(request, template):
-    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-        return render(request, template)
-    return render(request, "staffside/base.html", {"template": template})
+def render_page(request, template, data=None):
+    return render(request, "staffside/base.html", {"template": template, "data":data})
 
 def orders(request):
-    return render_page(request, 'staffside/orders.html')
+    orders=[
+        {"id":12341,"customer_name":"Kenil Patel","table":"A1","amount":200},
+        {"id":12342,"customer_name":"Rasesh Patel","table":"A1","amount":1200},
+        {"id":12343,"customer_name":"Brijesh Patel","table":"A1","amount":700},
+        {"id":12344,"customer_name":"Shruti Patel","table":"A1","amount":500},
+        {"id":12345,"customer_name":"John Patel","table":"A1","amount":900},
+    ]
+    return render_page(request, 'staffside/orders.html',data=orders)
 
 def tables(request):
     return render_page(request, 'staffside/tables.html')
