@@ -8,9 +8,9 @@
   color: #000;
 }
 .nav-pills .nav-link.active {
-  background-color: #f9c784;
-  border: #f9c784;
-  color: black;
+  background-color: #4e598c;
+  border: #4e598c;
+  color: white;
 }
 
 .table-card {
@@ -30,7 +30,7 @@
 .table-shape {
   width: 80px;
   height: 80px;
-  background: #d3d3d3; /*rgb(226, 228, 231)*/
+  background: #b7b9bc;
   border-radius: 8px;
   display: flex;
   align-items: center;
@@ -46,7 +46,7 @@
 .seat {
   width: 25px;
   height: 8px;
-  background: #ccc;
+  background: #4e598c;
   border-radius: 5px;
   position: absolute;
 }
@@ -94,13 +94,13 @@ p {
 }
 
 .vacant {
-  border-bottom: 5px solid green;
+  border-bottom: 5px solid #f89b34;
 }
 .occupied {
-  border-bottom: 5px solid red;
+  border-bottom: 5px solid #b5b95d;
 }
 .reserved {
-  border-bottom: 5px solid blue;
+  border-bottom: 5px solid #f7c93c;
 }
 @media screen and (max-width: 960px) {
   .table-bar {
