@@ -7,6 +7,9 @@
 .nav-item a {
   color: #000;
 }
+.nav-pills .nav-link:hover {
+  color: #4e598c;
+}
 .nav-pills .nav-link.active {
   background-color: #4e598c;
   border: #4e598c;
