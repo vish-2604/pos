@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 from .forms import CustomPasswordChangeForm
 
+
 def home(request):
-    return redirect('dashboard')
+    return redirect('adminside:dashboard')
 
 def render_page(request, template, data=None):
     return render(request, "adminside/base.html", {"template": template, "data":data})
@@ -45,8 +46,8 @@ def reports(request):
     return render_page(request, 'adminside/reports.html', data=sales_data)
 
 
-def settings_view(request):
-    return redirect('profile')
+def adminside_settings_view(request):
+    return redirect('adminside:profile')
 
 def render_settings_page(request, template, context=None):
     if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
