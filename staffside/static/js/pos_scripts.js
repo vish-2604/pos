@@ -51,9 +51,9 @@ function renderProducts() {
 
                     <!-- Size Options -->
                     <div class="size-options mb-2">
-                        <button class="btn btn-sm btn-outline-secondary size-btn ${cartItem.size === 'Small' ? 'selected-size' : ''}" onclick="selectSize(${product.id}, 'Small')">Small</button>
-                        <button class="btn btn-sm btn-outline-secondary size-btn ${cartItem.size === 'Medium' ? 'selected-size' : ''}" onclick="selectSize(${product.id}, 'Medium')">Medium</button>
-                        <button class="btn btn-sm btn-outline-secondary size-btn ${cartItem.size === 'Large' ? 'selected-size' : ''}" onclick="selectSize(${product.id}, 'Large')">Large</button>
+                        <button class="btn btn-sm btn-outline-secondary size-btn small-btn ${cartItem.size === 'Small' ? 'selected-size' : ''}" onclick="selectSize(${product.id}, 'Small')">Small</button>
+                        <button class="btn btn-sm btn-outline-secondary size-btn medium-btn ${cartItem.size === 'Medium' ? 'selected-size' : ''}" onclick="selectSize(${product.id}, 'Medium')">Medium</button>
+                        <button class="btn btn-sm btn-outline-secondary size-btn large-btn ${cartItem.size === 'Large' ? 'selected-size' : ''}" onclick="selectSize(${product.id}, 'Large')">Large</button>
                     </div>
 
                     <!-- Quantity Selector -->

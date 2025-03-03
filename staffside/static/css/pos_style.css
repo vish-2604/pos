@@ -121,6 +121,11 @@
     padding: 10px;
 }
 
+.place-order-btn:hover {
+    background-color: #a2a2a4;
+    color: black;
+}
+
 .payment-btn{
     margin-top: 10px;
     background-color: #4E598C;
@@ -129,6 +134,12 @@
     font-size: 16px;
     padding: 10px;
 }
+
+.payment-btn:hover {
+    background-color: #a2a2a4;
+    color: black;
+}
+
 
 
 .quantity-container {
@@ -230,6 +241,13 @@
     }
 }
 
+
+@media (max-width: 1058px) and (min-width: 993px){
+    .large-btn{
+        margin-top: 5px;
+    }
+}
+
 @media (max-width: 993px) and (min-width: 944px) {
     .left-section {
         width: 100%;
@@ -284,4 +302,23 @@
         margin-top: 20px;
     }
 
+}
+
+@media (max-width: 484px) and (min-width:424px){
+    .large-btn{
+        margin-top: 5px;
+
+    }
+}
+
+@media (max-width: 424px){
+
+    .medium-btn{
+        margin-top: 5px;
+
+    }
+    .large-btn{
+        margin-top: 5px;
+
+    }
 }
