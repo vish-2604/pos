@@ -49,7 +49,7 @@
         </div>
         
         <!-- Payment Breakdown -->
-        <div class="row mt-4">
+        <!-- <div class="row mt-4">
             <div class="col-md-12">
                 <div class="card p-3">
                     <h5>Payment Breakdown</h5>
@@ -59,7 +59,31 @@
                         <li class="list-group-item">UPI: $500.00</li>
                     </ul>
                 </div>
-            </div>
+            </div> -->
+            <!-- <div class="row mt-4">
+                <div class="col-md-12">
+                    <div class="card p-3">
+                        <h5>Payment Breakdown</h5>
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <strong>Cash:</strong> $1,000.00 <br>
+                                <small>Customers: 15</small> <br>
+                                <small>Transaction Fees: $0.00</small>
+                            </li> -->
+                            <!-- <li class="list-group-item">
+                                <strong>Card:</strong> $950.00 <br>
+                                <small>Customers: 12</small> <br>
+                                <small>Transaction Fees: $10.00</small>
+                            </li>
+                            <li class="list-group-item">
+                                <strong>UPI:</strong> $500.00 <br>
+                                <small>Customers: 8</small> <br>
+                                <small>Transaction Fees: $5.00</small>
+                            </li> -->
+                        <!-- </ul>
+                    </div>
+                </div>
+            </div> -->
             <!-- <div class="col-md-6">
                 <div class="card p-3">
                     <h5>Staff Performance</h5>
@@ -75,14 +99,17 @@
         <!-- Order History & Search -->
         <div class="card mt-4 p-3">
             <h3>Sales Details</h3>
-            <div class="search-container">
-                <input type="text" id="searchInput" class="search-input" placeholder="Search by store or manager">
-                <button class="search-btn" onclick="toggleSearch()">
-                  <i class="fa fa-search"></i>
-                </button>
+            <div class="d-flex mb-3" >
+                <input type="text" id="searchInput" class="form-control me-2" placeholder="Search by order id or Customer Name">
+                <span>
+                    <button class="search-btn btn btn-outline-primary" onclick="filterTable()">
+                    <i class="fa fa-search"></i>
+                    </button>
+                </span> 
             </div>
             <!-- <input type="text" class="form-control mb-3" placeholder="Search Order ID or Customer Name"> -->
-            <table class="table table-responsive">
+          <div class="table-responsive">
+            <table class="table">
                 <thead>
                     <tr>
                         <th>Order ID</th>
@@ -94,25 +121,71 @@
                         <th>Action</th>
                     </tr>
                 </thead>
-                <tbody id="salesTableBody">
-                    <!-- <tr>
+                <tbody >
+                    <tr>
                         <td>#1023</td>
                         <td>Michael</td>
                         <td>$45.00</td>
-                        <td>Card</td>
+                        <td>Cash</td>
+                        <td></td>
+                        <td></td>
                         <td><button class="btn btn-sm btn-primary">Reprint Receipt</button></td>
                     </tr>
-                    <tr>
+                    <tr>    
                         <td>#1024</td>
                         <td>Susan</td>
                         <td>$30.00</td>
-                        <td>Cash</td>
+                        <td>Cash</td>   
+                        <td></td>
+                        <td></td>
                         <td><button class="btn btn-sm btn-primary">Reprint Receipt</button></td>
-                    </tr> -->
+                    </tr>
+                    <tr>
+                        <td>#1025</td>
+                        <td>Rahil</td>
+                        <td>$30.00</td>
+                        <td>Cash</td>   
+                        <td></td>
+                        <td></td>
+                        <td><button class="btn btn-sm btn-primary">Reprint Receipt</button></td>
+                    </tr>
+                    <tr>
+                        <td>#1050</td>
+                        <td>Vishal</td>
+                        <td>$30.00</td>
+                        <td>Cash</td>   
+                        <td></td>
+                        <td></td>
+                        <td><button class="btn btn-sm btn-primary">Reprint Receipt</button></td>
+                    </tr>
+                    <tr>
+                        <td>#1055</td>
+                        <td>Vijay</td>
+                        <td>$30.00</td>
+                        <td>Cash</td>   
+                        <td></td>
+                        <td></td>
+                        <td><button class="btn btn-sm btn-primary">Reprint Receipt</button></td>
+                    </tr>
+                    <tr>
+                        <td>#1059</td>
+                        <td>Logan</td>
+                        <td>$30.00</td>
+                        <td>Cash</td>   
+                        <td></td>
+                        <td></td>
+                        <td><button class="btn btn-sm btn-primary">Reprint Receipt</button></td>
+                    </tr>
                 </tbody>
+          
             </table>
+          </div>
         </div>
     </div>
-    <script src="{% static 'js/sales_scripts.js' %}"></script>
+   
+    <script src="{% static 'js/sales_scripts.js' %}">   
+
+  
+    </script>
 </body>
 </html>

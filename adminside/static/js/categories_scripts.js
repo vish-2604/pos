@@ -88,12 +88,16 @@ function toggleStatus(checkbox) {
     }
 }
 
+function resetForm() {
+    document.getElementById("foodItemForm").reset(); // Resets all input fields
+}
+
 // Function to handle updating a category
 function updateRow(button) {
     currentRow = button.closest("tr");
     let name = currentRow.cells[1].innerText;
     document.getElementById("itemName").value = name;
-    openForm();
+    openForm(true);
 }
 
 // Function to delete a category row
@@ -102,18 +106,27 @@ function deleteRow(button) {
 }
 
 // Open form modal
-function openForm() {
+// function openForm() {
+//     document.getElementById("overlay").style.display = "block";
+//     document.getElementById("myForm").style.display = "block";
+//     document.body.classList.add("popup-open");
+// }
+function openForm(isUpdate = false) {
     document.getElementById("overlay").style.display = "block";
     document.getElementById("myForm").style.display = "block";
     document.body.classList.add("popup-open");
+  
+    if (!isUpdate) {
+        resetForm();  // Clears the form ONLY when adding a new chain
+        updateIndex = null; // Clear any previous update reference
+    }
 }
-
 // Close form modal
 function closeForm() {
     document.getElementById("overlay").style.display = "none";
     document.getElementById("myForm").style.display = "none";
     document.body.classList.remove("popup-open");
-    
+   
     // Reset currentRow to prevent unintended deletions
     currentRow = null;
 }
