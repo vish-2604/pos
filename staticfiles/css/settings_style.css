@@ -4,6 +4,10 @@ body {
     margin: 0;
 }
 
+:root {
+    --color: #5e6790;
+  }
+
 .top-navbar {
     display: flex;
     justify-content: flex-end;

@@ -1,70 +1,83 @@
+function toggleSearch() {
+    let searchContainer = document.querySelector(".search-container");
+    let searchInput = document.querySelector(".search-input");
+  
+    searchContainer.classList.toggle("active");
+    if (searchContainer.classList.contains("active")) {
+      searchInput.focus();
+    }
+  } 
 document.addEventListener("DOMContentLoaded", function () {
-    console.log("reports_scripts.js loaded!"); // Debugging check
+    const modal = new bootstrap.Modal(document.getElementById("detailsModal"));
+    
 
-    // Sales Chart
-    const ctx = document.getElementById('salesChart');
-    if (ctx) {
-        new Chart(ctx.getContext('2d'), {
-            type: 'line',
-            data: {
-                labels: ['8 AM', '10 AM', '12 PM', '2 PM', '4 PM', '6 PM', '8 PM'],
-                datasets: [
-                    {
-                        label: 'Online Sales',
-                        data: [500, 700, 1200, 900, 1300, 1700, 2000, 5000],
-                        borderColor: '#6c5ce7',
-                        backgroundColor: 'rgba(108, 92, 231, 0.1)',
-                        tension: 0.4
-                    },
-                    {
-                        label: 'Offline Sales',
-                        data: [400, 600, 1000, 800, 1100, 1500, 1900, 4000],
-                        borderColor: '#ff7675',
-                        backgroundColor: 'rgba(255, 118, 117, 0.1)',
-                        tension: 0.4
-                    }
-                ]
+    document.querySelectorAll(".paymentnow").forEach(button => {
+        button.addEventListener("click", function () {
+            // Fetch data attributes
+            const total = this.getAttribute("data-total");
+            const balance = this.getAttribute("data-balance");
+            const date = this.getAttribute("data-date");
+            const invoice = this.getAttribute("data-invoice");
+            const paid = this.getAttribute("data-paid");
+
+
+            // Set modal values
+            document.getElementById("modal-total").textContent = `₹${total}`;
+            document.getElementById("modal-paid").textContent = `₹${paid}`;
+            document.getElementById("modal-balance").textContent = `₹${balance}`;
+            document.getElementById("modal-due").textContent = `₹${total-paid}`;
+
+            // Store invoice number in submit button for reference
+            document.getElementById("submit-payment").setAttribute("data-invoice", invoice);
+
+            // Show modal
+            modal.show();
+        });
+    });
+
+    // Handle Payment Submission
+    document.getElementById("submit-payment").addEventListener("click", function () {
+        const invoice = this.getAttribute("data-invoice");
+        const amount = document.getElementById("payment-amount").value;
+
+        if (!amount ||amount<=0)  {
+            alert("Please enter a valid payment amount.");
+            return;
+        }
+        
+
+        // Send data to backend via AJAX
+        fetch("/process_payment/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": getCookie("csrftoken")  // Ensure CSRF token is included
             },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        display: true,
-                        position: 'top'
-                    }
-                },
-                scales: {
-                    x: { grid: { display: false } },
-                    y: { grid: { display: true, color: '#eee' } }
+            body: JSON.stringify({ invoice: invoice, amount: amount })
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.message);  // Show success message
+            modal.hide();  // Close modal after submission
+        })
+        .catch(error => console.error("Error:", error));
+    });
+    
+
+    // Function to get CSRF token
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== "") {
+            const cookies = document.cookie.split(";");
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + "=")) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
                 }
             }
-        });
-    } else {
-        console.error("salesChart element not found!");
+        }
+        return cookieValue;
     }
-
-    // Donut Chart
-    let chart = bb.generate({
-        data: {
-            columns: [
-                ["Food", 4],
-                ["Drinks", 2],
-                ["Other", 3],
-            ],
-            type: "donut",
-            onclick: function (d, i) {
-                console.log("onclick", d, i);
-            },
-            onover: function (d, i) {
-                console.log("onover", d, i);
-            },
-            onout: function (d, i) {
-                console.log("onout", d, i);
-            },
-        },
-        donut: {
-            title: "5000",
-        },
-        bindto: "#donut-chart",
-    });
 });
+

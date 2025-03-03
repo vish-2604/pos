@@ -96,6 +96,10 @@ function addStaff() {
     return; // STOP adding data if validation fails
   }
 
+  const defaultImageUrl = document
+    .getElementById("defaultImagePath")
+    .getAttribute("data-path");
+
   let table = document.getElementById("staffBody");
   let rowCount = table.rows.length + 1;
 
@@ -105,12 +109,17 @@ function addStaff() {
   let password = document.getElementById("password").value;
   let staffRole = document.getElementById("staffRole").value;
   let stores = document.getElementById("Stores").value;
-  let staffImage = document.getElementById("staffImage").files[0];
+  let staffImageInput = document.getElementById("staffImage");
+
+  let staffImage =
+    staffImageInput.files.length > 0 ? staffImageInput.files[0] : null;
+
+  let imageUrl = staffImage ? URL.createObjectURL(staffImage) : defaultImageUrl;
 
   let newRow = document.createElement("tr");
   newRow.innerHTML = `
         <td>${rowCount}</td>
-        <td><img src="${staffImage ? URL.createObjectURL(staffImage) : 'placeholder.jpg'}" class="food-img" width="50"></td>
+        <td><img src="${imageUrl}" class="food-img" width="50"></td>
         <td>${fullName}</td>
         <td>${userName}</td>
         <td>${email}</td>
@@ -138,7 +147,7 @@ function updateRow(button) {
   document.getElementById("password").value = columns[5].innerText;
   document.getElementById("staffRole").value = columns[6].innerText;
   document.getElementById("Stores").value = columns[7].innerText;
-  document.getElementById("staffImage").value = columns[8].innerText;
+  document.getElementById("staffImage").value = columns[0].innerText;
 
   openForm();
   row.remove(); // Remove the row before re-adding updated data
@@ -151,7 +160,7 @@ function deleteRow(button) {
 function openForm() {
   document.getElementById("overlay").style.display = "block";
   document.getElementById("myForm").style.display = "block";
-  document.body.classList.add("popup-open"); 
+  document.body.classList.add("popup-open");
 }
 
 function closeForm() {

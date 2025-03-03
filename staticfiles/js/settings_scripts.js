@@ -1,29 +1,60 @@
-function updateProfilePic() {
-    let input = document.getElementById("profile_pic");
-    let file = input.files[0];
+    
+document.addEventListener("DOMContentLoaded", function() {
+    document.querySelectorAll(".payment-btn").forEach(button => {
+        button.addEventListener("click", function() {
+            let invoiceNo = this.dataset.invoice;
+            
+            // Fetch order details from Django backend
+            fetch(`/get_payment_details/${invoiceNo}/`)
+            .then(response => response.json())
+            .then(data => {
+                // Populate modal with fetched data
+                document.getElementById("modal-invoice").innerText = data.invoice_no;
+                document.getElementById("modal-fullname").innerText = data.full_name;
+                document.getElementById("modal-phone").innerText = data.phone;
+                document.getElementById("modal-email").innerText = data.email;
+                document.getElementById("modal-total").innerText = data.total;
+                document.getElementById("modal-paid").innerText = data.paid;
+                document.getElementById("modal-balance").innerText = data.balance;
+                document.getElementById("modal-date").innerText = data.date;
+                
+                // Show the modal
+                let paymentModal = new bootstrap.Modal(document.getElementById("paymentModal"));
+                paymentModal.show();
+            })
+            .catch(error => console.error("Error fetching payment details:", error));
+        });
+    });
 
-    if (file) {
-        let reader = new FileReader();
-        reader.onload = function (e) {
-            // Update the profile picture preview
-            document.getElementById("profileImage").src = e.target.result;
+    // Handle Pay Now button click
+    document.getElementById("pay-now-btn").addEventListener("click", function() {
+        let invoiceNo = document.getElementById("modal-invoice").innerText;
+        let amount = document.getElementById("payment-amount").value;
 
-            // Close the modal properly
-            let modalElement = document.getElementById("editProfilePicModal");
-            let modalInstance = bootstrap.Modal.getInstance(modalElement);
+        if (!amount || amount <= 0) {
+            alert("Please enter a valid payment amount.");
+            return;
+        }
 
-            if (modalInstance) {
-                modalInstance.hide();
+        fetch(`/make_payment/`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": "{{ csrf_token }}"
+            },
+            body: JSON.stringify({ invoice_no: invoiceNo, amount: amount })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert("Payment Successful!");
+                location.reload(); // Reload page to update table
+            } else {
+                alert("Payment Failed: " + data.message);
             }
+        })
+        .catch(error => console.error("Error processing payment:", error));
+    });
+});
 
-            // Remove the modal backdrop manually after hiding
-            setTimeout(() => {
-                document.querySelectorAll(".modal-backdrop").forEach(backdrop => backdrop.remove());
-                document.body.classList.remove("modal-open"); // Remove the Bootstrap modal-open class
-                document.body.style.overflow = "auto"; // Restore scrolling
-            }, 300); // Delay slightly to match modal animation
-        };
 
-        reader.readAsDataURL(file);
-    }
-}
