@@ -1,13 +1,7 @@
-<<<<<<< HEAD
 
-=======
->>>>>>> branch1
 .dashboard-container {
     margin-left: 10px;
 }
-:root {
-    --color: #5e6790;
-  }
 
 .title-row {
     margin-top: 24px;
@@ -44,9 +38,9 @@
 .sales-container {
     display: flex;
     flex-direction: column;
-    /* Aligns items vertically */
+   
     gap: 3px;
-    /* Small space between elements */
+   
 }
 
 .sales-title {
@@ -60,7 +54,7 @@
     font-weight: 700;
     color: #FF8C42;
     margin-bottom: 2px;
-    /* Reduce space below */
+   
 }
 
 .sales-percentage {
@@ -68,13 +62,13 @@
     font-size: 12px;
     font-weight: 500;
     margin-top: -5px;
-    /* Ensure no extra space above */
+    
 }
 
 .chart-container {
     width: 100%;
     height: 200px;
-    /* Adjust height as needed */
+    
     display: flex;
     justify-content: center;
     align-items: center;
@@ -310,7 +304,3 @@ h21 {
         margin-left: 0px;
     }
 }
-<<<<<<< HEAD
-
-=======
->>>>>>> branch1
