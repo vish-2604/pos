@@ -368,6 +368,7 @@ function addStore() {
 }
 
 function updateRow(button) {
+ 
   let row = button.closest("tr");
   let columns = row.getElementsByTagName("td");
 
@@ -378,8 +379,8 @@ function updateRow(button) {
   document.getElementById("status").value = columns[5].textContent;
 
   updateIndex = row; // Store reference to the row for updating
-
-  openForm();
+  openForm(true);
+  
 }
 
 function validateForm() {
@@ -393,6 +394,9 @@ function validateForm() {
     return false;
   }
   return true;
+}
+function resetForm() {
+  document.getElementById("storeForm").reset(); // Resets all input fields
 }
 
 function saveUpdatedStore() {
@@ -435,12 +439,21 @@ function removeError(input) {
   }
 }
 
-function openForm() {
+// function openForm() {
+//   document.getElementById("overlay").style.display = "block";
+//   document.getElementById("myForm").style.display = "block";
+//   document.body.classList.add("popup-open");
+// }
+function openForm(isUpdate = false) {
   document.getElementById("overlay").style.display = "block";
   document.getElementById("myForm").style.display = "block";
   document.body.classList.add("popup-open");
-}
 
+  if (!isUpdate) {
+      resetForm();  // Clears the form ONLY when adding a new chain
+      updateIndex = null; // Clear any previous update reference
+  }
+}
 function closeForm() {
   document.getElementById("overlay").style.display = "none";
   document.getElementById("myForm").style.display = "none";
