@@ -11,8 +11,8 @@ def render_page(request, template, data=None):
 def dashboard(request):
     return render_page(request, 'adminside/dashboard.html')
 
-def stores(request):   
-    return render_page(request, 'adminside/stores.html')
+def branches(request):   
+    return render_page(request, 'adminside/branches.html')
 
 def suppliers(request):
     return render_page(request, 'adminside/suppliers.html')
