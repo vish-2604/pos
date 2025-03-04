@@ -14,7 +14,6 @@ function toggleSearch() {
 document.getElementById("searchInput").addEventListener("keyup", function () {
   let filter = this.value.toLowerCase();
   let rows = document.querySelectorAll("#storeTableBody tr");
-<<<<<<< HEAD
 
   rows.forEach(function (row) {
     let store = row.cells[1].textContent.toLowerCase();
@@ -28,55 +27,6 @@ document.getElementById("searchInput").addEventListener("keyup", function () {
   });
 });
 
-
-let ID = 1;
-let updateIndex = null; // Stores the row reference for updating
-
-document.addEventListener("DOMContentLoaded", function () {
-  document.getElementById("customerForm").addEventListener("submit", function (event) {
-    event.preventDefault();
-    if (validateForm()) {
-      if (updateIndex !== null) {
-        saveUpdatedCustomer(); // Update existing row
-      } else {
-        addCustomer(); // Add new row
-      }
-    }
-  });
-});
-
-// Search function
-document.getElementById("searchInput").addEventListener("keyup", function () {
-  let filter = this.value.toLowerCase();
-  let rows = document.querySelectorAll("#customerBody tr");
-=======
->>>>>>> 790c165edc86a28f091e85b8597db3420ebc9c9c
-
-  rows.forEach(function (row) {
-    let store = row.cells[1].textContent.toLowerCase();
-    let manager = row.cells[2].textContent.toLowerCase();
-
-    if (store.includes(filter) || manager.includes(filter)) {
-      row.style.display = "";
-    } else {
-      row.style.display = "none";
-    }
-  });
-});
-
-<<<<<<< HEAD
-// Function to add a new customer
-function addCustomer() {
-  let firstName = document.getElementById("firstName").value.trim();
-  let lastName = document.getElementById("lastName").value.trim();
-  let address = document.getElementById("address").value.trim();
-  let phoneNo = document.getElementById("phoneNo").value.trim();
-  let email = document.getElementById("email").value.trim();
-  let gender = document.getElementById("gender").value;
-
-  clearErrors(); // Clears previous validation errors
-
-=======
 let ID = 1;
 let updateIndex = null; // Customers the row reference for updating
 
@@ -114,7 +64,6 @@ function validateForm() {
   removeError(phoneNo);
   removeError(gender);
   clearErrors();
->>>>>>> 790c165edc86a28f091e85b8597db3420ebc9c9c
   let isValid = true;
 
   if (!phoneNo) {
@@ -129,10 +78,6 @@ function validateForm() {
     showError("genderError", "Please select gender.");
     isValid = false;
   }
-<<<<<<< HEAD
-
-  if (!isValid) return; // Stop if validation fails
-=======
   // Password Validation
   if (!phoneNoRegex.test(phoneNoValue)) {
     showError(
@@ -178,7 +123,6 @@ function addCustomer() {
   let phoneNo = document.getElementById("phoneNo").value.trim();
   let email = document.getElementById("email").value.trim();
   let gender = document.getElementById("gender").value;
->>>>>>> 790c165edc86a28f091e85b8597db3420ebc9c9c
 
   let newRow = document.createElement("tr");
   newRow.innerHTML = `
@@ -213,11 +157,7 @@ function updateRow(button) {
   document.getElementById("email").value = columns[5].textContent;
   document.getElementById("gender").value = columns[6].textContent;
 
-<<<<<<< HEAD
-  updateIndex = row; // Store reference to the row for updating
-=======
   updateIndex = row; // Customer reference to the row for updating
->>>>>>> 790c165edc86a28f091e85b8597db3420ebc9c9c
   openForm(true);
 }
 
@@ -249,47 +189,6 @@ function deleteRow(button) {
   button.closest("tr").remove();
 }
 
-<<<<<<< HEAD
-// Form validation function
-function validateForm() {
-  let phoneNo = document.getElementById("phoneNo").value.trim();
-  let email = document.getElementById("email").value.trim();
-  
-  let phoneNoRegex = /^(?:\+91[-\s]?)?[6-9]\d{9}$/;
-  let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-  removeError(document.getElementById("phoneNo"));
-  removeError(document.getElementById("email"));
-
-  let isValid = true;
-
-  if (!phoneNoRegex.test(phoneNo)) {
-    showError("phoneError", "Invalid phone number format.");
-    isValid = false;
-  }
-
-  if (!emailRegex.test(email)) {
-    showError("emailError", "Invalid email format.");
-    isValid = false;
-  }
-
-  return isValid;
-}
-
-// Function to show error messages
-function showError(id, message) {
-  document.getElementById(id).textContent = message;
-}
-
-// Function to clear all error messages
-function clearErrors() {
-  document.querySelectorAll(".error-message").forEach((el) => {
-    el.textContent = "";
-  });
-}
-
-=======
->>>>>>> 790c165edc86a28f091e85b8597db3420ebc9c9c
 // Open form modal
 function openForm(isUpdate = false) {
   document.getElementById("overlay").style.display = "block";
@@ -310,8 +209,7 @@ function closeForm() {
 
   resetForm(); // Ensure form resets when closing
   updateIndex = null; // Reset update index when closing
-<<<<<<< HEAD
-=======
+
 }
 
 // Function to reset the form
@@ -324,7 +222,7 @@ function clearErrors() {
   document.querySelectorAll(".error-message").forEach((el) => {
     el.textContent = "";
   });
->>>>>>> 790c165edc86a28f091e85b8597db3420ebc9c9c
+
 }
 
 // Function to reset the form
