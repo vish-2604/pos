@@ -12,7 +12,7 @@ function toggleSearch() {
 // Search function
 document.getElementById("searchInput").addEventListener("keyup", function () {
   let filter = this.value.toLowerCase();
-  let rows = document.querySelectorAll("#storeTableBody tr");
+  let rows = document.querySelectorAll("#customerBody tr");
 
   rows.forEach(function (row) {
     let store = row.cells[1].textContent.toLowerCase();
@@ -58,10 +58,6 @@ function validateForm() {
   let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Valid email format
   let phoneNoRegex = /^(?:\+91[-\s]?)?[6-9]\d{9}$/;
 
-  // Remove previous error messages
-  removeError(email);
-  removeError(phoneNo);
-  removeError(gender);
   clearErrors();
   let isValid = true;
 
@@ -93,14 +89,6 @@ function showError(input, message) {
   errorSpan.style.fontSize = "12px";
   errorSpan.innerText = message;
   input.parentNode.appendChild(errorSpan);
-}
-
-// Function to remove error messages
-function removeError(input) {
-  let error = input.parentNode.querySelector(".error-message");
-  if (error) {
-    error.remove();
-  }
 }
 
 // Function to add a new customer

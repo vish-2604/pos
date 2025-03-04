@@ -49,7 +49,7 @@ function validateForm() {
   let email = document.getElementById("email");
   let password = document.getElementById("password");
   let staffRole = document.getElementById("staffRole");
-  let branch = document.getElementById("Stores");
+  let branch = document.getElementById("branches");
 
   let emailValue = email.value.trim();
   let passwordValue = password.value.trim();
@@ -62,10 +62,6 @@ function validateForm() {
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/; // Min 8 chars, 1 special character & 1 uppercase , 1 lowercase ,1 number
 
   // Remove previous error messages
-  removeError(email);
-  removeError(password);
-  removeError(staffRole);
-  removeError(branch);
   clearErrors();
   let isValid = true;
 
@@ -107,14 +103,6 @@ function showError(input, message) {
   input.parentNode.appendChild(errorSpan);
 }
 
-// Function to remove previous error messages
-function removeError(input) {
-  let error = input.parentNode.querySelector(".error-message");
-  if (error) {
-    error.remove();
-  }
-}
-
 function addStaff() {
   if (!validateForm()) {
     return; // STOP adding data if validation fails
@@ -129,7 +117,7 @@ function addStaff() {
   let email = document.getElementById("email").value;
   let password = document.getElementById("password").value;
   let staffRole = document.getElementById("staffRole").value;
-  let branch = document.getElementById("Stores").value;
+  let branch = document.getElementById("branches").value;
   let staffImageInput = document.getElementById("staffImage");
 
   let staffImage =
@@ -168,7 +156,7 @@ function updateRow(button) {
   document.getElementById("email").value = columns[4].innerText;
   document.getElementById("password").value = columns[5].innerText;
   document.getElementById("staffRole").value = columns[6].innerText;
-  document.getElementById("Stores").value = columns[7].innerText;
+  document.getElementById("branches").value = columns[7].innerText;
 
   let image = document.getElementById("staffImage");
   if (image) {
@@ -191,7 +179,7 @@ function saveUpdatedStaff() {
     let email = document.getElementById("email").value.trim();
     let password = document.getElementById("password").value.trim();
     let staffRole = document.getElementById("staffRole").value.trim();
-    let branch = document.getElementById("Stores").value.trim();
+    let branch = document.getElementById("branches").value.trim();
     let staffImageInput = document.getElementById("staffImage");
 
     let staffImage =
