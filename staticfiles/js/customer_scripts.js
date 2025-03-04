@@ -15,10 +15,10 @@ document.getElementById("searchInput").addEventListener("keyup", function () {
   let rows = document.querySelectorAll("#customerBody tr");
 
   rows.forEach(function (row) {
-    let FirstName = row.cells[1].textContent.toLowerCase();
-    let LastName = row.cells[2].textContent.toLowerCase();
+    let fullName = row.cells[1].textContent.toLowerCase();
+    let userName = row.cells[2].textContent.toLowerCase();
 
-    if (FirstName.includes(filter) || LastName.includes(filter)) {
+    if (fullName.includes(filter) || userName.includes(filter)) {
       row.style.display = "";
     } else {
       row.style.display = "none";
@@ -44,19 +44,23 @@ function validateForm() {
   let emailValue = email.value.trim();
   let phoneNoValue = phoneNo.value.trim();
 
-  let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  // Regular expressions for validation
+  let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Valid email format
   let phoneNoRegex = /^(?:\+91[-\s]?)?[6-9]\d{9}$/;
 
+  // Remove previous error messages
   removeError(email);
   removeError(phoneNo);
 
   let isValid = true;
 
+  // Email Validation
   if (!emailRegex.test(emailValue)) {
     showError(email, "Enter a valid email (e.g., user@example.com)");
     isValid = false;
   }
 
+  // Password Validation
   if (!phoneNoRegex.test(phoneNoValue)) {
     showError(
       phoneNo,
@@ -88,11 +92,12 @@ function removeError(input) {
 
 function addCustomer() {
   if (!validateForm()) {
-    return;
+    return; // STOP adding data if validation fails
   }
 
   let table = document.getElementById("customerBody");
   let rowCount = table.rows.length + 1;
+
   let firstName = document.getElementById("firstName").value;
   let lastName = document.getElementById("lastName").value;
   let address = document.getElementById("address").value;
@@ -132,7 +137,7 @@ function updateRow(button) {
   document.getElementById("gender").value = columns[6].innerText.trim();
 
   openForm();
-  row.remove();
+  row.remove(); // Remove the row before re-adding updated data
 }
 
 function deleteRow(button) {
@@ -142,7 +147,7 @@ function deleteRow(button) {
 function openForm() {
   document.getElementById("overlay").style.display = "block";
   document.getElementById("myForm").style.display = "block";
-  document.body.classList.add("popup-open"); // Prevent background scrolling
+  document.body.classList.add("popup-open");
 }
 
 function closeForm() {

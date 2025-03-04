@@ -22,7 +22,7 @@
 
     <button
       class="open-button add-customer-button rounded-3"
-      onclick="openForm()"
+      onclick="openForm(false)"
     >
       <span class="btn-text">
         <i class="fa-solid fa-plus plus-icon"></i> Add Customer
@@ -78,6 +78,7 @@
       <div class="input-group">
         <label for="gender"><b>Gender</b></label>
         <select id="gender">
+          <option value="" disabled selected hidden>Choose Gender</option>
           <option value="Male">Male</option>
           <option value="Female">Female</option>
           <option value="Other">Other</option>

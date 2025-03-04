@@ -2,7 +2,7 @@
   font-family: "Nunito", sans-serif;
 }
 :root {
-    --color: #5e6790;
+  --color: #5e6790;
 }
 .staff-title {
   display: flex;
@@ -275,12 +275,10 @@
   background: var(--color);
   color: white;
 }
-
 .btn {
   background: green;
   color: white;
 }
-
 @media (max-width: 480px) {
   .form-buttons {
     flex-direction: column;
@@ -298,8 +296,7 @@
   }
 }
 
-
-input[type="number"]::-webkit-inner-spin-button, 
+input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   appearance: none;

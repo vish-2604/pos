@@ -341,11 +341,20 @@ function addStore() {
   let manager = document.getElementById("managerID").value.trim();
   let phoneNo = document.getElementById("PhoneNo").value.trim();
   let status = document.getElementById("status").value;
+  
+  clearErrors();
 
-  if (!location || !area || !manager || !phoneNo || !status) {
-    alert("Please fill in all required fields.");
-    return;
+  let isValid=true;
+
+  if (!phoneNo) {
+    showError("phoneError", "Invalid format for phone no.");
+    isValid = false;
   }
+  if(!status){
+    showError("statusError", "Status is require");
+    isValid = false;
+  }
+  if (!isValid) return; 
 
   let newRow = document.createElement("tr");
   newRow.innerHTML = `
@@ -366,6 +375,17 @@ function addStore() {
   document.getElementById("storeForm").reset();
   closeForm();
 }
+
+function showError(id, message) {
+  document.getElementById(id).textContent = message;
+}
+
+function clearErrors() {
+  document.querySelectorAll(".error-message").forEach((el) => {
+      el.textContent = "";
+  });
+}
+
 
 function updateRow(button) {
  

@@ -1,12 +1,15 @@
-.dashboard-container{
+.dashboard-container {
     margin-left: 10px;
 }
+:root {
+    --color: #5e6790;
+  }
 
-.title-row{
+.title-row {
     margin-top: 24px;
 }
 
-.graph-row{
+.graph-row {
     margin-top: 10px;
     width: 1290px;
 }
@@ -18,7 +21,7 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     position: relative;
     text-align: left;
-    width: 580px; 
+    width: 580px;
     height: 347px;
 }
 
@@ -26,7 +29,7 @@
     position: absolute;
     top: 15px;
     right: 15px;
-    background-color:  #4E598C;
+    background-color: #4E598C;
     color: white;
     border-radius: 20px;
     padding: 7px 15px;
@@ -36,8 +39,10 @@
 
 .sales-container {
     display: flex;
-    flex-direction: column; /* Aligns items vertically */
-    gap: 3px; /* Small space between elements */
+    flex-direction: column;
+    /* Aligns items vertically */
+    gap: 3px;
+    /* Small space between elements */
 }
 
 .sales-title {
@@ -49,19 +54,23 @@
 .sales-value {
     font-size: 20px;
     font-weight: 700;
-    color:#FF8C42;
-    margin-bottom: 2px; /* Reduce space below */
+    color: #FF8C42;
+    margin-bottom: 2px;
+    /* Reduce space below */
 }
 
 .sales-percentage {
-    color:#4E598C;
+    color: #4E598C;
     font-size: 12px;
     font-weight: 500;
-    margin-top: -5px; /* Ensure no extra space above */
+    margin-top: -5px;
+    /* Ensure no extra space above */
 }
+
 .chart-container {
     width: 100%;
-    height: 200px; /* Adjust height as needed */
+    height: 200px;
+    /* Adjust height as needed */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -109,7 +118,7 @@ canvas {
     text-align: left;
     position: relative;
     width: 100%;
-    height: 347px;     
+    height: 347px;
 }
 
 .donut-chart-container {
@@ -122,7 +131,7 @@ canvas {
 
 
 #donut-chart {
-    width: 250px; 
+    width: 250px;
     height: 250px;
 }
 
@@ -197,13 +206,13 @@ h21 {
     background-color: green;
 }
 
-.detail-row{
+.detail-row {
     margin-top: 40px;
-    margin-left:1px;
+    margin-left: 1px;
 }
 
 .da-box {
-    width: 585px;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -211,6 +220,9 @@ h21 {
     border-radius: 10px;
     padding: 15px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.best-employee-container{
+    margin-left: -7px;
 }
 
 .sales-title {
@@ -225,69 +237,72 @@ h21 {
     font-size: 14px;
 }
 
-
-@media (max-width: 1024px) {
-    
+@media (max-width: 1246px) and (min-width: 1218px) {
+    .best-employee-container{
+        margin-left: 147px;
+    } 
+}
+@media (max-width:1217px) and (min-width: 1192px) {
+    .best-employee-container{
+        margin-left: 152px;
+    }
 }
 
-/* @media (max-width: 768px) {
-    .dashboard-container {
-        margin-left: 5px; 
+@media (max-width:1191px) and (min-width:1120px){
+    .best-employee-container{
+        margin-left: 188px;
     }
+}
 
+@media (max-width:1119px)and (min-width:1098px){
+    .best-employee-container{
+        margin-left: 200px;
+    }
+}
+
+@media (max-width:1097px) and (min-width:1058px){
+    .best-employee-container{
+        margin-left: 218px;
+    }
+}
+
+@media (max-width:1057px) and (min-width:1024px){
+    .best-employee-container{
+        margin-left: 232px;
+    }
+}
+
+
+@media (max-width: 1024px) {
     .graph-row {
-        flex-wrap: wrap;
-        justify-content: center;
+        flex-direction: column;
+        width: 100%;
+        gap: 10px;
     }
 
-    .col-6, .col-3 {
-        width: 100%; 
+    .stat-card-income {
+        width: 500px;
     }
 
     .stat-card1 {
+        width: 500px !important;
+        height: auto !important;
+    }
+
+
+    .donut-chart-container {
+
         height: auto;
     }
 
-    .da-box {
+    .detail-row {
+        margin-top: 10px;
+        flex-direction: column;
         width: 100%;
-        flex-direction: column; 
-        align-items: flex-start;
+        gap: 10px;
     }
 
-    .dropdown {
-        width: 100%;
-        margin-top: 10px;
+    .best-employee-container{
+        margin-left: 0px;
     }
 }
-
-@media (max-width: 480px) {
-    h2 {
-        font-size: 18px; 
-    }
-
-    .sales-title {
-        font-size: 14px;
-    }
-
-    .sales-value {
-        font-size: 18px;
-    }
-
-    .stat-value {
-        font-size: 20px;
-    }
-
-    .btn-report {
-        font-size: 12px;
-        padding: 5px 10px;
-    }
-
-    .sales-box {
-        padding: 10px;
-    }
-
-    .chart-container {
-        height: 150px;
-    }
-} */
-
