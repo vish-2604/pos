@@ -410,7 +410,7 @@ function validateForm() {
   removeError(document.getElementById("PhoneNo"));
 
   if (!phoneNoRegex.test(phoneNo)) {
-    alert("Invalid Phone Format. Phone number must be 10 digits & start with 6-9 (e.g., 9876543210)");
+    showError(phoneNo,"Invalid Phone Format. Phone number must be 10 digits & start with 6-9 (e.g., 9876543210)");
     return false;
   }
   return true;

@@ -27,21 +27,22 @@ document.getElementById("searchInput").addEventListener("keyup", function () {
   });
 });
 
-
 let ID = 1;
 let updateIndex = null; // Stores the row reference for updating
 
 document.addEventListener("DOMContentLoaded", function () {
-  document.getElementById("customerForm").addEventListener("submit", function (event) {
-    event.preventDefault();
-    if (validateForm()) {
-      if (updateIndex !== null) {
-        saveUpdatedCustomer(); // Update existing row
-      } else {
-        addCustomer(); // Add new row
+  document
+    .getElementById("customerForm")
+    .addEventListener("submit", function (event) {
+      event.preventDefault();
+      if (validateForm()) {
+        if (updateIndex !== null) {
+          saveUpdatedCustomer(); // Update existing row
+        } else {
+          addCustomer(); // Add new row
+        }
       }
-    }
-  });
+    });
 });
 
 // Search function
@@ -61,33 +62,73 @@ document.getElementById("searchInput").addEventListener("keyup", function () {
   });
 });
 
+// Form validation function
+function validateForm() {
+  let email = document.getElementById("email");
+  let phoneNo = document.getElementById("phoneNo");
+  let gender = document.getElementById("gender");
+  let emailValue = email.value.trim();
+  let phoneNoValue = phoneNo.value.trim();
+  let genderValue = gender.value.trim();
+  // Regular expressions for validation
+  let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Valid email format
+  let phoneNoRegex = /^(?:\+91[-\s]?)?[6-9]\d{9}$/;
+  // Remove previous error messages
+  removeError(email);
+  removeError(phoneNo);
+  removeError(gender);
+  clearErrors();
+  let isValid = true;
+  // Email Validation
+  if (!emailRegex.test(emailValue)) {
+    showError(email, "Enter a valid email (e.g., mailto:user@example.com)");
+    isValid = false;
+  }
+  // Password Validation
+  if (!phoneNoRegex.test(phoneNoValue)) {
+    showError(
+      phoneNo,
+      "Invalid Phone Format.Phone number must be 10 digits & start with 6-9 (e.g., 9876543210)"
+    );
+    isValid = false;
+  }
+  if (!genderValue) {
+    showError(gender, "Gender selection is required.");
+    isValid = false;
+  }
+  return isValid;
+}
+
+// Function to show error messages below the input field
+function showError(input, message) {
+  let errorSpan = document.createElement("span");
+  errorSpan.classList.add("error-message");
+  errorSpan.style.color = "red";
+  errorSpan.style.fontSize = "12px";
+  errorSpan.innerText = message;
+  input.parentNode.appendChild(errorSpan);
+}
+
+// Function to remove error messages
+function removeError(input) {
+  let error = input.parentNode.querySelector(".error-message");
+  if (error) {
+    error.remove();
+  }
+}
+
 // Function to add a new customer
 function addCustomer() {
+  if (!validateForm()) {
+    return; // STOP adding data if validation fails
+  }
+
   let firstName = document.getElementById("firstName").value.trim();
   let lastName = document.getElementById("lastName").value.trim();
   let address = document.getElementById("address").value.trim();
   let phoneNo = document.getElementById("phoneNo").value.trim();
   let email = document.getElementById("email").value.trim();
   let gender = document.getElementById("gender").value;
-
-  clearErrors(); // Clears previous validation errors
-
-  let isValid = true;
-
-  if (!phoneNo) {
-    showError("phoneError", "Invalid format for phone number.");
-    isValid = false;
-  }
-  if (!email) {
-    showError("emailError", "Email is required.");
-    isValid = false;
-  }
-  if (!gender) {
-    showError("genderError", "Please select gender.");
-    isValid = false;
-  }
-
-  if (!isValid) return; // Stop if validation fails
 
   let newRow = document.createElement("tr");
   newRow.innerHTML = `
@@ -154,37 +195,6 @@ function deleteRow(button) {
   button.closest("tr").remove();
 }
 
-// Form validation function
-function validateForm() {
-  let phoneNo = document.getElementById("phoneNo").value.trim();
-  let email = document.getElementById("email").value.trim();
-  
-  let phoneNoRegex = /^(?:\+91[-\s]?)?[6-9]\d{9}$/;
-  let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-  removeError(document.getElementById("phoneNo"));
-  removeError(document.getElementById("email"));
-
-  let isValid = true;
-
-  if (!phoneNoRegex.test(phoneNo)) {
-    showError("phoneError", "Invalid phone number format.");
-    isValid = false;
-  }
-
-  if (!emailRegex.test(email)) {
-    showError("emailError", "Invalid email format.");
-    isValid = false;
-  }
-
-  return isValid;
-}
-
-// Function to show error messages
-function showError(id, message) {
-  document.getElementById(id).textContent = message;
-}
-
 // Function to clear all error messages
 function clearErrors() {
   document.querySelectorAll(".error-message").forEach((el) => {
@@ -218,24 +228,3 @@ function closeForm() {
 function resetForm() {
   document.getElementById("customerForm").reset();
 }
-
-
-
-// // Function to display error messages
-function showError(input, message) {
-  let errorSpan = document.createElement("span");
-  errorSpan.classList.add("error-message");
-  errorSpan.style.color = "red";
-  errorSpan.style.fontSize = "12px";
-  errorSpan.innerText = message;
-  input.parentNode.appendChild(errorSpan);
-}
-
-// // Function to remove previous error messages
-function removeError(input) {
-  let error = input.parentNode.querySelector(".error-message");
-  if (error) {
-    error.remove();
-  }
-}
-
