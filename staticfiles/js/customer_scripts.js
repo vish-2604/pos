@@ -15,10 +15,10 @@ document.getElementById("searchInput").addEventListener("keyup", function () {
   let rows = document.querySelectorAll("#customerBody tr");
 
   rows.forEach(function (row) {
-    let fullName = row.cells[1].textContent.toLowerCase();
-    let userName = row.cells[2].textContent.toLowerCase();
+    let store = row.cells[1].textContent.toLowerCase();
+    let manager = row.cells[2].textContent.toLowerCase();
 
-    if (fullName.includes(filter) || userName.includes(filter)) {
+    if (store.includes(filter) || manager.includes(filter)) {
       row.style.display = "";
     } else {
       row.style.display = "none";
@@ -26,32 +26,39 @@ document.getElementById("searchInput").addEventListener("keyup", function () {
   });
 });
 
+let ID = 1;
+let updateIndex = null; // Customers the row reference for updating
+
 document.addEventListener("DOMContentLoaded", function () {
   document
     .getElementById("customerForm")
     .addEventListener("submit", function (event) {
       event.preventDefault();
       if (validateForm()) {
-        addCustomer();
+        if (updateIndex !== null) {
+          saveUpdatedCustomer(); // Update existing row
+        } else {
+          addCustomer(); // Add new row
+        }
       }
     });
 });
 
+// Form validation function
 function validateForm() {
   let email = document.getElementById("email");
   let phoneNo = document.getElementById("phoneNo");
+  let gender = document.getElementById("gender");
 
   let emailValue = email.value.trim();
   let phoneNoValue = phoneNo.value.trim();
+  let genderValue = gender.value.trim();
 
   // Regular expressions for validation
   let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Valid email format
   let phoneNoRegex = /^(?:\+91[-\s]?)?[6-9]\d{9}$/;
 
-  // Remove previous error messages
-  removeError(email);
-  removeError(phoneNo);
-
+  clearErrors();
   let isValid = true;
 
   // Email Validation
@@ -59,7 +66,6 @@ function validateForm() {
     showError(email, "Enter a valid email (e.g., user@example.com)");
     isValid = false;
   }
-
   // Password Validation
   if (!phoneNoRegex.test(phoneNoValue)) {
     showError(
@@ -68,11 +74,14 @@ function validateForm() {
     );
     isValid = false;
   }
-
+  if (!genderValue) {
+    showError(gender, "Gender selection is required.");
+    isValid = false;
+  }
   return isValid;
 }
 
-// Function to display error messages
+// Function to show error messages below the input field
 function showError(input, message) {
   let errorSpan = document.createElement("span");
   errorSpan.classList.add("error-message");
@@ -82,32 +91,22 @@ function showError(input, message) {
   input.parentNode.appendChild(errorSpan);
 }
 
-// Function to remove previous error messages
-function removeError(input) {
-  let error = input.parentNode.querySelector(".error-message");
-  if (error) {
-    error.remove();
-  }
-}
-
+// Function to add a new customer
 function addCustomer() {
   if (!validateForm()) {
     return; // STOP adding data if validation fails
   }
 
-  let table = document.getElementById("customerBody");
-  let rowCount = table.rows.length + 1;
-
-  let firstName = document.getElementById("firstName").value;
-  let lastName = document.getElementById("lastName").value;
-  let address = document.getElementById("address").value;
-  let phoneNo = document.getElementById("phoneNo").value;
-  let email = document.getElementById("email").value;
+  let firstName = document.getElementById("firstName").value.trim();
+  let lastName = document.getElementById("lastName").value.trim();
+  let address = document.getElementById("address").value.trim();
+  let phoneNo = document.getElementById("phoneNo").value.trim();
+  let email = document.getElementById("email").value.trim();
   let gender = document.getElementById("gender").value;
 
   let newRow = document.createElement("tr");
   newRow.innerHTML = `
-        <td>${rowCount}</td>
+        <td>${ID}</td>
         <td>${firstName}</td>
         <td>${lastName}</td>
         <td>${address}</td>
@@ -119,39 +118,87 @@ function addCustomer() {
             <button class="delete-btn" onclick="deleteRow(this)"><i class="fas fa-trash"></i></button>
         </td>
     `;
-  document.getElementById("customerBody").appendChild(newRow);
 
+  document.getElementById("customerBody").appendChild(newRow);
+  ID++; // Increment ID
   document.getElementById("customerForm").reset();
   closeForm();
 }
 
+// Function to update a row
 function updateRow(button) {
   let row = button.closest("tr");
   let columns = row.getElementsByTagName("td");
 
-  document.getElementById("firstName").value = columns[1].innerText;
-  document.getElementById("lastName").value = columns[2].innerText;
-  document.getElementById("address").value = columns[3].innerText;
-  document.getElementById("phoneNo").value = columns[4].innerText;
-  document.getElementById("email").value = columns[5].innerText;
-  document.getElementById("gender").value = columns[6].innerText.trim();
+  document.getElementById("firstName").value = columns[1].textContent;
+  document.getElementById("lastName").value = columns[2].textContent;
+  document.getElementById("address").value = columns[3].textContent;
+  document.getElementById("phoneNo").value = columns[4].textContent;
+  document.getElementById("email").value = columns[5].textContent;
+  document.getElementById("gender").value = columns[6].textContent;
 
-  openForm();
-  row.remove(); // Remove the row before re-adding updated data
+  updateIndex = row; // Customer reference to the row for updating
+  openForm(true);
 }
 
+// Function to save the updated customer details
+function saveUpdatedCustomer() {
+  if (updateIndex) {
+    let firstName = document.getElementById("firstName").value.trim();
+    let lastName = document.getElementById("lastName").value.trim();
+    let address = document.getElementById("address").value.trim();
+    let phoneNo = document.getElementById("phoneNo").value.trim();
+    let email = document.getElementById("email").value.trim();
+    let gender = document.getElementById("gender").value;
+
+    updateIndex.cells[1].textContent = firstName;
+    updateIndex.cells[2].textContent = lastName;
+    updateIndex.cells[3].textContent = address;
+    updateIndex.cells[4].textContent = phoneNo;
+    updateIndex.cells[5].textContent = email;
+    updateIndex.cells[6].textContent = gender;
+
+    updateIndex = null; // Reset after update
+    document.getElementById("customerForm").reset();
+    closeForm();
+  }
+}
+
+// Function to delete a row
 function deleteRow(button) {
   button.closest("tr").remove();
 }
 
-function openForm() {
+// Open form modal
+function openForm(isUpdate = false) {
   document.getElementById("overlay").style.display = "block";
   document.getElementById("myForm").style.display = "block";
   document.body.classList.add("popup-open");
+
+  if (!isUpdate) {
+    resetForm(); // Clears the form when adding a new customer
+    updateIndex = null; // Clear any previous update reference
+  }
 }
 
+// Close form modal
 function closeForm() {
   document.getElementById("overlay").style.display = "none";
   document.getElementById("myForm").style.display = "none";
   document.body.classList.remove("popup-open");
+
+  resetForm(); // Ensure form resets when closing
+  updateIndex = null; // Reset update index when closing
+}
+
+// Function to reset the form
+function resetForm() {
+  document.getElementById("customerForm").reset();
+}
+
+// Function to clear all error messages
+function clearErrors() {
+  document.querySelectorAll(".error-message").forEach((el) => {
+    el.textContent = "";
+  });
 }
