@@ -8,7 +8,6 @@ function toggleSearch() {
   }
 }
 
-// Search function
 document.getElementById("searchInput").addEventListener("keyup", function () {
   let filter = this.value.trim().toLowerCase();
   let rows = document.querySelectorAll("#foodTableBody tr");
@@ -25,161 +24,118 @@ document.getElementById("searchInput").addEventListener("keyup", function () {
   });
 });
 
-
-let foodItemId = 1;
-
 document.addEventListener("DOMContentLoaded", function () {
-  document.getElementById("foodItemForm").addEventListener("submit", function (event) {
-    event.preventDefault();
-    addFoodItem();
-  });
+  document
+    .getElementById("foodItemForm")
+    .addEventListener("submit", function (event) {
+      event.preventDefault();
+      if (updateIndex !== null) {
+        updateFoodItem();
+      } else {
+        addFoodItem();
+      }
+    });
 
   populateStaticDropdowns();
 });
 
-
-function populateStaticDropdowns() {
-  let names = ["Pizza", "Burger", "Pasta"];
-  let categories = ["Fast Food", "Beverages", "Desserts"];
-  let stores = ["Store A", "Store B", "Store C"];
-
-  let nameDropdown = document.getElementById("itemName");
-  let categoryDropdown = document.getElementById("itemCategory");
-  let storeDropdown = document.getElementById("itemStore");
-
-  names.forEach(name => {
-    let option = document.createElement("option");
-    option.value = name;
-    option.textContent = name;
-    nameDropdown.appendChild(option);
-  });
-
-  categories.forEach(category => {
-    let option = document.createElement("option");
-    option.value = category;
-    option.textContent = category;
-    categoryDropdown.appendChild(option);
-  });
-
-  stores.forEach(store => {
-    let option = document.createElement("option");
-    option.value = store;
-    option.textContent = store;
-    storeDropdown.appendChild(option);
-  });
-}
+let foodItemId = 1;
+let updateIndex = null;
 
 function addFoodItem() {
-  let itemName = document.getElementById("itemName");
-  let itemCategory = document.getElementById("itemCategory");
-  let itemDescription = document.getElementById("itemDescription");
-  let itemQuantity = document.getElementById("itemQuantity");
-  let itemStore = document.getElementById("itemStore");
-  let itemCost = document.getElementById("itemCost");
-  let itemSelling = document.getElementById("itemSelling");
-  let itemMFG = document.getElementById("itemMFG");
-  let itemExpiry = document.getElementById("itemExpiry");
-
-
   clearErrors();
+  if (!validateForm()) return;
 
-  let isValid=true;
+  let itemName = document.getElementById("itemName").value.trim();
+  let itemCategory = document.getElementById("itemCategory").value.trim();
+  let itemDescription = document.getElementById("itemDescription").value.trim();
+  let itemQuantity = document.getElementById("itemQuantity").value.trim();
+  let itemStore = document.getElementById("itemStore").value.trim();
+  let itemCost = document.getElementById("itemCost").value.trim();
+  let itemSelling = document.getElementById("itemSelling").value.trim();
+  let itemMFG = document.getElementById("itemMFG").value.trim();
+  let itemExpiry = document.getElementById("itemExpiry").value.trim();
 
-  if (!itemName.value.trim()) {
-    showError("nameError", "Item name is required.");
-    isValid = false;
-  }
-  if (!itemCategory.value.trim()) {
-    showError("categoryError", "Category is required.");
-    isValid = false;
-  }
-  if (!itemDescription.value.trim()) {
-    showError("descriptionError", "Description is required.");
-    isValid = false;
-  }
-  if (!itemQuantity.value.trim() || isNaN(itemQuantity.value) || itemQuantity.value <= 0) {
-    showError("quantityError", "Enter a valid quantity.");
-    isValid = false;
-  }
-  if (!itemStore.value.trim()) {
-    showError("storeError", "Store selection is required.");
-    isValid = false;
-  }
-  if (!itemCost.value.trim() || isNaN(itemCost.value) || itemCost.value <= 0) {
-    showError("costPriceError", "Enter a valid cost.");
-    isValid = false;
-  }
-  if (!itemSelling.value.trim() || isNaN(itemSelling.value) || itemSelling.value <= 0) {
-    showError("sellingPriceError", "Enter a valid selling price.");
-    isValid = false;
-  }
-  if (!itemMFG.value.trim()) {
-    showError("MFG-Error", "Manufacturing date is required.");
-    isValid = false;
-  }
-  if (!itemExpiry.value.trim()) {
-    showError("expiryError", "Expiry date is required.");
-    isValid = false;
-  }
-
-  if (!isValid) return; 
-
+  let foodTableBody = document.getElementById("foodTableBody");
   let newRow = document.createElement("tr");
+
   newRow.innerHTML = `
         <td>${foodItemId}</td>
         <td>Image</td>
-        <td>${itemName.value}</td>
-        <td>${itemCategory.value}</td>
-        <td>${itemDescription.value}</td>
-        <td>${itemQuantity.value}</td>
-        <td>${itemStore.value}</td>
-        <td>${itemCost.value}</td>
-        <td>${itemSelling.value}</td>
-        <td>${itemMFG.value}</td>
-        <td>${itemExpiry.value}</td>
+        <td>${itemName}</td>
+        <td>${itemCategory}</td>
+        <td>${itemDescription}</td>
+        <td>${itemQuantity}</td>
+        <td>${itemStore}</td>
+        <td>${itemCost}</td>
+        <td>${itemSelling}</td>
+        <td>${itemMFG}</td>
+        <td>${itemExpiry}</td>
         <td>
-            <button class="update-btn" onclick="updateRow(this)">Edit</button>
-            <button class="delete-btn" onclick="deleteRow(this)">Delete</button>
+            <button class="update-btn"><i class="fas fa-edit"></i></button>
+            <button class="delete-btn"><i class="fas fa-trash"></i></button>
         </td>
     `;
 
-  document.getElementById("foodTableBody").appendChild(newRow);
-  foodItemId++;
+  let updateBtn = newRow.querySelector(".update-btn");
+  updateBtn.addEventListener("click", function () {
+    editFoodItem(newRow);
+  });
 
+  let deleteBtn = newRow.querySelector(".delete-btn");
+  deleteBtn.addEventListener("click", function () {
+    deleteRow(newRow);
+  });
+
+  foodTableBody.appendChild(newRow);
+  foodItemId++;
   document.getElementById("foodItemForm").reset();
   closeForm();
 }
 
-function showError(id, message) {
-  document.getElementById(id).textContent = message;
-}
+function editFoodItem(row) {
+  console.log("Editing food item...");
+  
+  updateIndex = row; // Store row reference
 
-function clearErrors() {
-  document.querySelectorAll(".error-message").forEach((el) => {
-      el.textContent = "";
-  });
-}
+  let cells = row.getElementsByTagName("td");
 
-function updateRow(button) {
-  let row = button.closest("tr");
-  let columns = row.getElementsByTagName("td");
-
-  document.getElementById("itemName").value = columns[2].innerText;
-  document.getElementById("itemCategory").value = columns[3].innerText;
-  document.getElementById("itemDescription").value = columns[4].innerText;
-  document.getElementById("itemQuantity").value = columns[5].innerText;
-  document.getElementById("itemStore").value = columns[6].innerText;
-  document.getElementById("itemCost").value = columns[7].innerText;
-  document.getElementById("itemSelling").value = columns[8].innerText;
-  document.getElementById("itemMFG").value = columns[9].innerText;
-  document.getElementById("itemExpiry").value = columns[10].innerText;
+  document.getElementById("itemName").value = cells[2].textContent.trim();
+  document.getElementById("itemCategory").value = cells[3].textContent.trim();
+  document.getElementById("itemDescription").value = cells[4].textContent.trim();
+  document.getElementById("itemQuantity").value = cells[5].textContent.trim();
+  document.getElementById("itemStore").value = cells[6].textContent.trim();
+  document.getElementById("itemCost").value = cells[7].textContent.trim();
+  document.getElementById("itemSelling").value = cells[8].textContent.trim();
+  document.getElementById("itemMFG").value = cells[9].textContent.trim();
+  document.getElementById("itemExpiry").value = cells[10].textContent.trim();
 
   openForm();
-  row.remove(); 
 }
 
-function deleteRow(button) {
-  button.closest("tr").remove();
+function updateFoodItem() {
+  if (!updateIndex) return;
+  if (!validateForm()) return;
+
+  let cells = updateIndex.getElementsByTagName("td");
+
+  cells[2].textContent = document.getElementById("itemName").value.trim();
+  cells[3].textContent = document.getElementById("itemCategory").value.trim();
+  cells[4].textContent = document.getElementById("itemDescription").value.trim();
+  cells[5].textContent = document.getElementById("itemQuantity").value.trim();
+  cells[6].textContent = document.getElementById("itemStore").value.trim();
+  cells[7].textContent = document.getElementById("itemCost").value.trim();
+  cells[8].textContent = document.getElementById("itemSelling").value.trim();
+  cells[9].textContent = document.getElementById("itemMFG").value.trim();
+  cells[10].textContent = document.getElementById("itemExpiry").value.trim();
+
+  updateIndex = null;
+  document.getElementById("foodItemForm").reset();
+  closeForm();
+}
+
+function deleteRow(row) {
+  row.remove();
 }
 
 function openForm() {
@@ -192,4 +148,36 @@ function closeForm() {
   document.getElementById("overlay").style.display = "none";
   document.getElementById("myForm").style.display = "none";
   document.body.classList.remove("popup-open");
+  updateIndex = null;
+}
+
+function populateStaticDropdowns() {
+  let names = ["Pizza", "Burger", "Pasta"];
+  let categories = ["Fast Food", "Beverages", "Desserts"];
+  let stores = ["Store A", "Store B", "Store C"];
+
+  let nameDropdown = document.getElementById("itemName");
+  let categoryDropdown = document.getElementById("itemCategory");
+  let storeDropdown = document.getElementById("itemStore");
+
+  names.forEach((name) => {
+    let option = document.createElement("option");
+    option.value = name;
+    option.textContent = name;
+    nameDropdown.appendChild(option);
+  });
+
+  categories.forEach((category) => {
+    let option = document.createElement("option");
+    option.value = category;
+    option.textContent = category;
+    categoryDropdown.appendChild(option);
+  });
+
+  stores.forEach((store) => {
+    let option = document.createElement("option");
+    option.value = store;
+    option.textContent = store;
+    storeDropdown.appendChild(option);
+  });
 }
