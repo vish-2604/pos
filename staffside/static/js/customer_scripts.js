@@ -40,9 +40,11 @@ document.addEventListener("DOMContentLoaded", function () {
 function validateForm() {
   let email = document.getElementById("email");
   let phoneNo = document.getElementById("phoneNo");
+  let gender = document.getElementById("gender");
 
   let emailValue = email.value.trim();
   let phoneNoValue = phoneNo.value.trim();
+  let genderValue = gender.value.trim();
 
   // Regular expressions for validation
   let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Valid email format
@@ -51,6 +53,8 @@ function validateForm() {
   // Remove previous error messages
   removeError(email);
   removeError(phoneNo);
+  removeError(gender);
+  clearErrors();
 
   let isValid = true;
 
@@ -69,6 +73,10 @@ function validateForm() {
     isValid = false;
   }
 
+  if (!genderValue) {
+    showError(gender, "Gender selection is required.");
+    isValid = false;
+  }
   return isValid;
 }
 
@@ -154,4 +162,10 @@ function closeForm() {
   document.getElementById("overlay").style.display = "none";
   document.getElementById("myForm").style.display = "none";
   document.body.classList.remove("popup-open");
+}
+
+function clearErrors() {
+  document.querySelectorAll(".error-message").forEach((el) => {
+    el.textContent = "";
+  });
 }
