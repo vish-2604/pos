@@ -4,11 +4,8 @@ body {
     margin: 0;
 }
 
-<<<<<<< HEAD
-=======
 
 /* base.html CSS */
->>>>>>> branch1
 .top-navbar {
     display: flex;
     justify-content: flex-end;
@@ -20,11 +17,7 @@ body {
     top: 0;
     left: 250px;
     right: 0;
-<<<<<<< HEAD
-    height: 97.8px;
-=======
     height: 108px;
->>>>>>> branch1
     z-index: 1000;
 }
 
@@ -64,11 +57,7 @@ body {
     text-align: center;
     font-size: 20px;
     font-weight: bold;
-<<<<<<< HEAD
-    padding: 15px 0;
-=======
     padding: 20px 0;
->>>>>>> branch1
     color: black;
     border-bottom: 2px solid #555;
     flex-shrink: 0;
@@ -76,20 +65,12 @@ body {
 
 .sidebar ul {
     list-style: none;
-<<<<<<< HEAD
-    padding: 8px;
-=======
     padding: 10px;
->>>>>>> branch1
     flex-grow: 1;
 }
 
 .sidebar ul li {
-<<<<<<< HEAD
-    padding: 5px;
-=======
     padding: 2px;
->>>>>>> branch1
     margin: 5px;
     cursor: pointer;
 }
@@ -110,11 +91,7 @@ body {
 }
 
 .sidebar ul li a.active {
-<<<<<<< HEAD
-    background-color: orangered;
-=======
     background-color: #4E598C;
->>>>>>> branch1
     color: white !important;
     font-weight: 600;
 }
@@ -156,8 +133,6 @@ body {
         text-align: center;
     }
 
-<<<<<<< HEAD
-=======
     .sidebar ul li a.active {
         margin: 12px;
         padding: 13px;
@@ -165,21 +140,12 @@ body {
         width: 30px;
     }
 
->>>>>>> branch1
     .sidebar ul li a span {
         display: none; /* Hide text */
     }
 
     .top-navbar {
         left: 70px; 
-<<<<<<< HEAD
-        height: 80px;
-    }
-
-    .content {
-        margin-left: 70px;
-        padding: calc(80px + 20px) 20px 20px;
-=======
         height: 108px;
     }
 
@@ -193,7 +159,6 @@ body {
     .content {
         margin-left: 70px;
         padding: calc(108px + 20px) 20px 20px;
->>>>>>> branch1
         width: calc(100% - 70px);
     }
 }
