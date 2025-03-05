@@ -1,4 +1,5 @@
 from django.contrib import admin
+<<<<<<< HEAD
 from .models import Inventory,Branch,Purchase
 
 # Register your models here.
@@ -17,3 +18,29 @@ class InventoryAdmin(admin.ModelAdmin):
   list_display = ("food_item_id", "image", "food_item_name","category","description","quantity","branch","sell_price","cost_price","mfg_date","exp_date")
   
 admin.site.register(Inventory, InventoryAdmin)
+=======
+from .models import Table,Sales_reports,Supplier,Categories,Customer,Staff
+
+# Register your models here.
+admin.site.register(Table)
+
+class SalesAdmin(admin.ModelAdmin):
+    list_display=("product_id","product_name","categories","quantities")
+admin.site.register(Sales_reports,SalesAdmin)
+
+class SupplierAdmin(admin.ModelAdmin):
+    list_display=("supplier_id","supplier_name","company_name","supplier_email","supplier_phone","address","branch")
+admin.site.register(Supplier,SupplierAdmin)
+
+class CategoryAdmin(admin.ModelAdmin):
+    list_display=("categories_id","categories_name","status")
+admin.site.register(Categories,CategoryAdmin)
+
+class CustomerAdmin(admin.ModelAdmin):
+    list_display=("customer_id","customer_firstname","customer_lastname","customer_email","customer_phone","gender")
+admin.site.register(Customer,CustomerAdmin)
+
+class StaffAdmin(admin.ModelAdmin):
+    list_display=("staff_id","staff_username","staff_firstname","staff_lastname","staff_email","staff_phone","staff_role","branch")
+admin.site.register(Staff,StaffAdmin)
+>>>>>>> 39993bdcad5242a1df9c8f38a8311e932d43323e

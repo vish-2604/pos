@@ -40,6 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
      "adminside",
      "staffside",
+     "accounts",
+     'rest_framework',
+     "api",
 ]
 
 MIDDLEWARE = [
@@ -57,7 +60,7 @@ ROOT_URLCONF = 'pos.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,"adminside/templates"),os.path.join(BASE_DIR,"staffside/templates")],
+        'DIRS': [os.path.join(BASE_DIR,"adminside/templates"),os.path.join(BASE_DIR,"staffside/templates"),os.path.join(BASE_DIR,"accounts/templates")],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -78,8 +81,12 @@ WSGI_APPLICATION = 'pos.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'pos_system',
+        'USER': 'pos',
+        'PASSWORD': 'pos@2025',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 

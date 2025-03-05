@@ -26,25 +26,35 @@ document.getElementById("searchInput").addEventListener("keyup", function () {
   });
 });
 
+let ID = 1;
+let updateIndex = null; // Customers the row reference for updating
+
 document.addEventListener("DOMContentLoaded", function () {
   document
     .getElementById("staffForm")
     .addEventListener("submit", function (event) {
       event.preventDefault();
       if (validateForm()) {
-        addStaff();
+        if (updateIndex !== null) {
+          saveUpdatedStaff(); // Update existing row
+        } else {
+          addStaff(); // Add new row
+        }
       }
     });
 });
 
+// Form validation function
 function validateForm() {
   let email = document.getElementById("email");
   let password = document.getElementById("password");
-  let staffRole = document.getElementById("staffRole").value;
-  let branch = document.getElementById("Stores").value;
+  let staffRole = document.getElementById("staffRole");
+  let branch = document.getElementById("branches");
 
   let emailValue = email.value.trim();
   let passwordValue = password.value.trim();
+  let staffRoleValue = staffRole.value.trim();
+  let branchValue = branch.value.trim();
 
   // Regular expressions for validation
   let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Valid email format
@@ -52,8 +62,6 @@ function validateForm() {
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/; // Min 8 chars, 1 special character & 1 uppercase , 1 lowercase ,1 number
 
   // Remove previous error messages
-  removeError(email);
-  removeError(password);
   clearErrors();
   let isValid = true;
 
@@ -72,13 +80,13 @@ function validateForm() {
     isValid = false;
   }
 
-  if (!staffRole.trim()) {
-    showError("staffRole", "Staff selection is required.");
+  if (!staffRoleValue) {
+    showError(staffRole, "Staff selection is required.");
     isValid = false;
   }
 
-  if (!branch.trim()) {
-    showError("branch", "Branch selection is required.");
+  if (!branchValue) {
+    showError(branch, "Branch selection is required.");
     isValid = false;
   }
 
@@ -95,14 +103,6 @@ function showError(input, message) {
   input.parentNode.appendChild(errorSpan);
 }
 
-// Function to remove previous error messages
-function removeError(input) {
-  let error = input.parentNode.querySelector(".error-message");
-  if (error) {
-    error.remove();
-  }
-}
-
 function addStaff() {
   if (!validateForm()) {
     return; // STOP adding data if validation fails
@@ -112,15 +112,12 @@ function addStaff() {
     .getElementById("defaultImagePath")
     .getAttribute("data-path");
 
-  let table = document.getElementById("staffBody");
-  let rowCount = table.rows.length + 1;
-
   let fullName = document.getElementById("fullName").value;
   let userName = document.getElementById("userName").value;
   let email = document.getElementById("email").value;
   let password = document.getElementById("password").value;
   let staffRole = document.getElementById("staffRole").value;
-  let branch = document.getElementById("Stores").value;
+  let branch = document.getElementById("branches").value;
   let staffImageInput = document.getElementById("staffImage");
 
   let staffImage =
@@ -130,7 +127,7 @@ function addStaff() {
 
   let newRow = document.createElement("tr");
   newRow.innerHTML = `
-        <td>${rowCount}</td>
+        <td>${ID}</td>
         <td><img src="${imageUrl}" class="food-img" width="50"></td>
         <td>${fullName}</td>
         <td>${userName}</td>
@@ -144,11 +141,12 @@ function addStaff() {
         </td>
     `;
   document.getElementById("staffBody").appendChild(newRow);
-
+  ID++; // Increment ID
   document.getElementById("staffForm").reset();
   closeForm();
 }
 
+// Function to update a row
 function updateRow(button) {
   let row = button.closest("tr");
   let columns = row.getElementsByTagName("td");
@@ -158,32 +156,86 @@ function updateRow(button) {
   document.getElementById("email").value = columns[4].innerText;
   document.getElementById("password").value = columns[5].innerText;
   document.getElementById("staffRole").value = columns[6].innerText;
-  document.getElementById("Stores").value = columns[7].innerText;
+  document.getElementById("branches").value = columns[7].innerText;
 
   let image = document.getElementById("staffImage");
   if (image) {
     image.src = columns[1].querySelector("img").src;
   }
-  openForm();
-  row.remove(); // Remove the row before re-adding updated data
+
+  updateIndex = row; // Staff reference to the row for updating
+  openForm(true);
 }
 
+// Function to save the updated customer details
+function saveUpdatedStaff() {
+  if (updateIndex) {
+    const defaultImageUrl = document
+      .getElementById("defaultImagePath")
+      .getAttribute("data-path");
+
+    let fullName = document.getElementById("fullName").value.trim();
+    let userName = document.getElementById("userName").value.trim();
+    let email = document.getElementById("email").value.trim();
+    let password = document.getElementById("password").value.trim();
+    let staffRole = document.getElementById("staffRole").value.trim();
+    let branch = document.getElementById("branches").value.trim();
+    let staffImageInput = document.getElementById("staffImage");
+
+    let staffImage =
+      staffImageInput.files.length > 0 ? staffImageInput.files[0] : null;
+
+    let imageUrl = staffImage
+      ? URL.createObjectURL(staffImage)
+      : defaultImageUrl;
+
+    updateIndex.cells[1].innerHTML = `<img src="${imageUrl}" class="food-img" width="50">`;
+    updateIndex.cells[2].textContent = fullName;
+    updateIndex.cells[3].textContent = userName;
+    updateIndex.cells[4].textContent = email;
+    updateIndex.cells[5].textContent = password;
+    updateIndex.cells[6].textContent = staffRole;
+    updateIndex.cells[7].textContent = branch;
+
+    updateIndex = null; // Reset after update
+    document.getElementById("staffForm").reset();
+    closeForm();
+  }
+}
+
+// Function to delete a row
 function deleteRow(button) {
   button.closest("tr").remove();
 }
 
+// Open form modal
 function openForm() {
   document.getElementById("overlay").style.display = "block";
   document.getElementById("myForm").style.display = "block";
   document.body.classList.add("popup-open");
+
+  if (!isUpdate) {
+    resetForm(); // Clears the form when adding a new staff
+    updateIndex = null; // Clear any previous update reference
+  }
 }
 
+// Close form modal
 function closeForm() {
   document.getElementById("overlay").style.display = "none";
   document.getElementById("myForm").style.display = "none";
   document.body.classList.remove("popup-open");
+
+  resetForm(); // Ensure form resets when closing
+  updateIndex = null; // Reset update index when closing
 }
 
+// Function to reset the form
+function resetForm() {
+  document.getElementById("staffForm").reset();
+}
+
+// Function to clear all error messages
 function clearErrors() {
   document.querySelectorAll(".error-message").forEach((el) => {
     el.textContent = "";
