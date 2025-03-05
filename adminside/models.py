@@ -1,4 +1,6 @@
 
+from phonenumber_field.modelfields import PhoneNumberField
+
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 
@@ -31,7 +33,9 @@ class Inventory(models.Model):
     mfg_date=models.DateField()
     exp_date=models.DateField()
 
+
 from django.db import models, connection
+
 
 class Table(models.Model):
     STATUS_CHOICES = [
