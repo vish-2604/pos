@@ -1,5 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import CustomPasswordChangeForm
+from api.serializers import TableSerializer
+from adminside.models import Table
+from rest_framework.decorators import api_view
+from django.db import connection
 
 
 def home(request):
@@ -75,4 +79,10 @@ def logout_view(request):
     
     ]
     return render_page(request, 'adminside/logout.html',data=sales_data)
+
+
+
+
+
+
 
