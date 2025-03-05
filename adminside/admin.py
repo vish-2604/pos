@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Inventory,Branch,Purchase
+from .models import Inventory,Branch,Purchase,Table,Sales_reports,Supplier,Categories,Customer,Staff
 
 # Register your models here.
 class BranchAdmin(admin.ModelAdmin):
@@ -17,8 +17,6 @@ class InventoryAdmin(admin.ModelAdmin):
   list_display = ("food_item_id", "image", "food_item_name","category","description","quantity","branch","sell_price","cost_price","mfg_date","exp_date")
   
 admin.site.register(Inventory, InventoryAdmin)
-
-from .models import Table,Sales_reports,Supplier,Categories,Customer,Staff
 
 # Register your models here.
 admin.site.register(Table)

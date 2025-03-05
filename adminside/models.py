@@ -1,5 +1,5 @@
 
-from django.db import models
+from django.db import models , connection
 from phonenumber_field.modelfields import PhoneNumberField
 
 class Branch(models.Model):
@@ -30,9 +30,6 @@ class Inventory(models.Model):
     cost_price=models.IntegerField(null=False)
     mfg_date=models.DateField()
     exp_date=models.DateField()
-
-
-from django.db import models, connection
 
 
 class Table(models.Model):
