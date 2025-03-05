@@ -1,3 +1,4 @@
+// New code
 // Toggle search input on small devices
 function toggleSearch() {
   let searchContainer = document.querySelector(".search-container");
@@ -61,9 +62,16 @@ function validateForm() {
   clearErrors();
   let isValid = true;
 
-  // Email Validation
-  if (!emailRegex.test(emailValue)) {
-    showError(email, "Enter a valid email (e.g., user@example.com)");
+  if (!phoneNo) {
+    showError("phoneError", "Invalid format for phone number.");
+    isValid = false;
+  }
+  if (!email) {
+    showError("emailError", "Email is required.");
+    isValid = false;
+  }
+  if (!gender) {
+    showError("genderError", "Please select gender.");
     isValid = false;
   }
   // Password Validation
@@ -189,6 +197,7 @@ function closeForm() {
 
   resetForm(); // Ensure form resets when closing
   updateIndex = null; // Reset update index when closing
+
 }
 
 // Function to reset the form
@@ -201,4 +210,31 @@ function clearErrors() {
   document.querySelectorAll(".error-message").forEach((el) => {
     el.textContent = "";
   });
+
 }
+
+// Function to reset the form
+function resetForm() {
+  document.getElementById("customerForm").reset();
+}
+
+
+
+// // Function to display error messages
+function showError(input, message) {
+  let errorSpan = document.createElement("span");
+  errorSpan.classList.add("error-message");
+  errorSpan.style.color = "red";
+  errorSpan.style.fontSize = "12px";
+  errorSpan.innerText = message;
+  input.parentNode.appendChild(errorSpan);
+}
+
+// // Function to remove previous error messages
+function removeError(input) {
+  let error = input.parentNode.querySelector(".error-message");
+  if (error) {
+    error.remove();
+  }
+}
+
