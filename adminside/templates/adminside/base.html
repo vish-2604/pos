@@ -107,6 +107,14 @@
         </li>
         <li>
           <a
+            href="{% url 'adminside:tables' %}"
+            class="nav-link {% if request.path == '/adminside/tables/' %}active{% endif %}"
+          >
+            <i class="fa-solid fa-table"></i><span> Tables</span></a
+          >
+        </li>
+        <li>
+          <a
             href="{% url 'adminside:customer' %}"
             class="nav-link {% if request.path == '/adminside/customer/' %}active{% endif %}"
           >

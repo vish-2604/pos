@@ -29,6 +29,9 @@ def inventory(request):
 def fooditems(request):
     return render_page(request, 'adminside/fooditems.html')
 
+def tables(request):
+    return render_page(request, 'adminside/tables.html')
+
 def customer(request):
     return render_page(request, 'adminside/customer.html')
 
