@@ -41,6 +41,8 @@ INSTALLED_APPS = [
      "adminside",
      "staffside",
      "accounts",
+     'rest_framework',
+     "api",
 ]
 
 MIDDLEWARE = [
