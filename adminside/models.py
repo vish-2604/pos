@@ -2,7 +2,7 @@ from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 
 class Branch(models.Model):
-    id=models.IntegerField(primary_key=True)
+    id=models.AutoField(primary_key=True)
     location=models.CharField(max_length=50)
     area=models.CharField(max_length=50)
     manager_id=models.IntegerField(null=False)
@@ -10,7 +10,7 @@ class Branch(models.Model):
     status=models.CharField(max_length=10)
 
 class Purchase(models.Model):
-    food_item_id=models.IntegerField(primary_key=True)
+    food_item_id=models.AutoField(primary_key=True)
     food_item=models.CharField(max_length=50)
     cost_price=models.IntegerField(null=False)
     supplier_id=models.IntegerField(null=False)
@@ -18,7 +18,7 @@ class Purchase(models.Model):
     payment_status=models.CharField(max_length=10)
 
 class Inventory(models.Model):
-    food_item_id=models.IntegerField(primary_key=True)
+    food_item_id=models.AutoField(primary_key=True)
     image=models.ImageField(blank=True)
     food_item_name=models.CharField(max_length=20)
     category=models.CharField(max_length=20)
