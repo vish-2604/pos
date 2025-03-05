@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 
@@ -30,7 +30,7 @@ class Inventory(models.Model):
     cost_price=models.IntegerField(null=False)
     mfg_date=models.DateField()
     exp_date=models.DateField()
-=======
+
 from django.db import models, connection
 
 class Table(models.Model):
@@ -79,8 +79,6 @@ class Table(models.Model):
     def __str__(self):
         return f"Table {self.table_id} - {self.status}"
 
-from django.db import models
-from phonenumber_field.modelfields import PhoneNumberField
 
 class Sales_reports(models.Model):
   product_id = models.IntegerField()
@@ -121,4 +119,3 @@ class Staff(models.Model):
   staff_role=models.CharField(max_length=50)
   branch=models.CharField(max_length=50)
 
->>>>>>> 39993bdcad5242a1df9c8f38a8311e932d43323e
