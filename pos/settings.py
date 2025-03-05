@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
      "adminside",
      "staffside",
+     "accounts",
 ]
 
 MIDDLEWARE = [
@@ -57,7 +58,7 @@ ROOT_URLCONF = 'pos.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,"adminside/templates"),os.path.join(BASE_DIR,"staffside/templates")],
+        'DIRS': [os.path.join(BASE_DIR,"adminside/templates"),os.path.join(BASE_DIR,"staffside/templates"),os.path.join(BASE_DIR,"accounts/templates")],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
